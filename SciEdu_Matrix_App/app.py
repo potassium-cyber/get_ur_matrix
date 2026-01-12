@@ -11,8 +11,10 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# 定义数据目录
-DATA_DIR = "data"
+# 定义数据目录 (使用绝对路径，适应云端部署)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "data")
+
 VERSIONS = {
     "2023版": {"csv": "matrix_2023.csv", "yaml": "2023_program.yaml"},
     "2019版": {"csv": "matrix_2019.csv", "yaml": "2019_program.yaml"}
