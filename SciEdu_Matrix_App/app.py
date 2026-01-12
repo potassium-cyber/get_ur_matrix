@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import os
 import yaml
+import plotly.express as px
 
 # --- 1. 页面基础配置 ---
 st.set_page_config(
@@ -84,7 +85,7 @@ indicators_map = load_indicators_map(current_config["yaml"])
 st.sidebar.title("🔍 查询模式")
 mode = st.sidebar.radio(
     "请选择功能:",
-    ["课程反查 (查指标)", "指标反查 (查课程)", "全表浏览", "⚔️ 版本对比 (2019 vs 2023)"]
+    ["课程反查 (查指标)", "指标反查 (查课程)", "📊 数据统计", "全表浏览", "⚔️ 版本对比 (2019 vs 2023)"]
 )
 
 st.sidebar.markdown("---")
@@ -175,13 +176,39 @@ elif mode == "指标反查 (查课程)":
     
     # 获取所有指标点列
     indicators = df.columns[1:].tolist()
-    col1, col2 = st.columns([1, 3])
+    
+    # 使用两列布局
+    col1, col2 = st.columns([1, 2])
+    
     with col1:
         selected_ind = st.selectbox("选择指标点:", indicators)
+        
+        # 显示指标点详情
+        ind_desc = indicators_map.get(selected_ind, "暂无描述")
+        st.info(f"**指标点 {selected_ind} 含义**:\n\n{ind_desc}")
     
     if selected_ind:
         # 筛选出该列不为空的行
         filtered = df[df[selected_ind].notna() & (df[selected_ind] != "" ) ]
+        
+        with col2:
+            if not filtered.empty:
+                # 统计分布
+                counts = filtered[selected_ind].value_counts()
+                fig = px.pie(
+                    values=counts.values, 
+                    names=counts.index,
+                    title=f"指标点 {selected_ind} 支撑强度分布",
+                    color=counts.index,
+                    color_discrete_map={'H':'#d9534f', 'M':'#f0ad4e', 'L':'#5bc0de'},
+                    hole=0.4
+                )
+                fig.update_layout(height=300, margin=dict(t=30, b=0, l=0, r=0))
+                st.plotly_chart(fig, use_container_width=True)
+            else:
+                st.write("暂无统计数据")
+
+        st.divider()
         
         if not filtered.empty:
             st.success(f"✅ 指标点 **{selected_ind}** 由以下 **{len(filtered)}** 门课程支撑:")
@@ -206,6 +233,71 @@ elif mode == "指标反查 (查课程)":
         else:
             st.warning(f"⚠️ 目前没有课程支撑指标点 {selected_ind}")
 
+# === 模式 E: 数据统计 ===
+elif mode == "📊 数据统计":
+    st.header("📈 全局数据统计分析")
+    
+    # 1. 总体概览 KPI
+    total_courses = len(df)
+    total_indicators = len(df.columns) - 1
+    
+    # 计算所有单元格的填充情况
+    # 熔化 dataframe 为长格式以便统计
+    melted = df.melt(id_vars=['课程名称'], var_name='指标点', value_name='强度')
+    melted = melted[melted['强度'].notna() & (melted['强度'] != "")]
+    
+    total_relations = len(melted)
+    avg_support = total_relations / total_courses if total_courses > 0 else 0
+    
+    k1, k2, k3, k4 = st.columns(4)
+    k1.metric("课程总数", total_courses)
+    k2.metric("指标点总数", total_indicators)
+    k3.metric("支撑关系总数", total_relations)
+    k4.metric("平均每课支撑", f"{avg_support:.1f} 个")
+    
+    st.divider()
+    
+    # 2. 图表分析
+    c1, c2 = st.columns(2)
+    
+    with c1:
+        st.subheader("全局支撑强度分布")
+        counts = melted['强度'].value_counts()
+        fig_dist = px.pie(
+            values=counts.values, 
+            names=counts.index,
+            color=counts.index,
+            color_discrete_map={'H':'#d9534f', 'M':'#f0ad4e', 'L':'#5bc0de'},
+            hole=0.4
+        )
+        st.plotly_chart(fig_dist, use_container_width=True)
+        
+    with c2:
+        st.subheader("TOP 10 强支撑(H) 课程")
+        # 统计每门课的 H 数量
+        h_counts = melted[melted['强度'] == 'H']['课程名称'].value_counts().head(10)
+        fig_bar = px.bar(
+            x=h_counts.values,
+            y=h_counts.index,
+            orientation='h',
+            labels={'x': '强支撑(H)数量', 'y': '课程名称'},
+            color_discrete_sequence=['#d9534f']
+        )
+        fig_bar.update_layout(yaxis={'categoryorder':'total ascending'})
+        st.plotly_chart(fig_bar, use_container_width=True)
+
+    st.subheader("指标点覆盖热度")
+    # 统计每个指标点的支撑课程数量
+    ind_counts = melted['指标点'].value_counts().reset_index()
+    ind_counts.columns = ['指标点', '支撑课程数']
+    
+    fig_ind = px.bar(
+        ind_counts, x='指标点', y='支撑课程数',
+        color='支撑课程数',
+        color_continuous_scale='Blues'
+    )
+    st.plotly_chart(fig_ind, use_container_width=True)
+
 # === 模式 C: 全表浏览 ===
 elif mode == "全表浏览":
     st.header("📋 完整关联矩阵")
@@ -222,8 +314,8 @@ elif mode == "⚔️ 版本对比 (2019 vs 2023)":
     df23 = load_data("matrix_2023.csv")
 
     if df19 is None or df23 is None:
-        st.error("❌ 无法进行对比：缺少数据文件。")
-        st.info("请确保 `data/` 目录下同时存在 `matrix_2019.csv` 和 `matrix_2023.csv`。")
+        st.error("❌ 无法进行对比：缺少数据文件。 সন")
+        st.info("请确保 `data/` 目录下同时存在 `matrix_2019.csv` 和 `matrix_2023.csv`。 সন")
     else:
         # 2. 获取课程并集
         courses19 = set(df19['课程名称'].dropna())
@@ -241,8 +333,6 @@ elif mode == "⚔️ 版本对比 (2019 vs 2023)":
         target_course = search_res[0] if search_res else None
 
         if target_course:
-            col_a, col_b = st.columns(2)
-            
             # 获取数据辅助函数
             def get_course_support(dataframe, course_name):
                 if course_name not in dataframe['课程名称'].values:
@@ -258,65 +348,57 @@ elif mode == "⚔️ 版本对比 (2019 vs 2023)":
             support19 = get_course_support(df19, target_course)
             support23 = get_course_support(df23, target_course)
 
-            with col_a:
-                st.subheader("2019 版支撑")
-                if not support19:
-                    st.warning("该版本无此课程")
-                else:
-                    st.dataframe(pd.DataFrame(list(support19.items()), columns=['指标点', '强度']), hide_index=True, use_container_width=True)
-
-            with col_b:
-                st.subheader("2023 版支撑")
-                if not support23:
-                    st.warning("该版本无此课程")
-                else:
-                    st.dataframe(pd.DataFrame(list(support23.items()), columns=['指标点', '强度']), hide_index=True, use_container_width=True)
-
             # 3. 智能分析变化 (仅当两版都有数据时)
-            if support19 and support23:
-                st.divider()
-                st.subheader("📊 变化分析")
+            
+            st.divider()
+            st.subheader("📊 变化分析详情")
+            
+            all_inds = sorted(list(set(support19.keys()) | set(support23.keys())))
+            comparison_data = []
+            
+            for ind in all_inds:
+                v19 = support19.get(ind, "")
+                v23 = support23.get(ind, "")
                 
-                # 简单逻辑：如果指标点名称包含相同的代码（如 1.1），则认为对应
-                # 这里为了通用性，直接展示并集对比
-                
-                all_inds = sorted(list(set(support19.keys()) | set(support23.keys())))
-                comparison_data = []
-                
-                for ind in all_inds:
-                    v19 = support19.get(ind, "")
-                    v23 = support23.get(ind, "")
-                    
-                    status = ""
-                    if v19 == v23:
-                        status = "⏹️ 保持"
-                    elif v19 and not v23:
-                        status = "❌ 移除"
-                    elif not v19 and v23:
-                        status = "🆕 新增"
-                    else:
-                        status = "🔄 变更"
-                    
-                    # 只有当发生变化，或者有值的时候才显示，避免全是空行
-                    if v19 or v23:
-                        comparison_data.append({
-                            "指标点": ind,
-                            "2019": v19,
-                            "2023": v23,
-                            "状态": status
-                        })
-                
-                if comparison_data:
-                    comp_df = pd.DataFrame(comparison_data)
-                    
-                    # 样式函数 (改为修改文字颜色，避免背景刺眼)
-                    def style_change(row):
-                        css = ''
-                        if "新增" in row['状态']: css = 'color: #198754; font-weight: bold' # Green
-                        elif "移除" in row['状态']: css = 'color: #dc3545; font-weight: bold' # Red
-                        elif "变更" in row['状态']: css = 'color: #fd7e14; font-weight: bold' # Orange
-                        return [css] * len(row)
-
-                    st.dataframe(comp_df.style.apply(style_change, axis=1), use_container_width=True, hide_index=True)
+                status = ""
+                if v19 == v23:
+                    status = "⏹️ 保持"
+                elif v19 and not v23:
+                    status = "❌ 移除"
+                elif not v19 and v23:
+                    status = "🆕 新增"
                 else:
-                    st.info("该课程在两个版本中的支撑情况完全一致。")
+                    status = "🔄 变更"
+                
+                # 只有当发生变化，或者有值的时候才显示
+                if v19 or v23:
+                    comparison_data.append({
+                        "指标点": ind,
+                        "2019版": v19,
+                        "2023版": v23,
+                        "状态": status
+                    })
+            
+            if comparison_data:
+                comp_df = pd.DataFrame(comparison_data)
+                
+                # 样式函数
+                def style_change(row):
+                    css = ''
+                    if "新增" in row['状态']: css = 'color: #198754; font-weight: bold' # Green
+                    elif "移除" in row['状态']: css = 'color: #dc3545; font-weight: bold' # Red
+                    elif "变更" in row['状态']: css = 'color: #fd7e14; font-weight: bold' # Orange
+                    return [css] * len(row)
+
+                st.dataframe(
+                    comp_df.style.apply(style_change, axis=1), 
+                    use_container_width=True, 
+                    hide_index=True,
+                    column_config={
+                        "2019版": st.column_config.TextColumn(width="small"),
+                        "2023版": st.column_config.TextColumn(width="small"),
+                        "状态": st.column_config.TextColumn(width="small"),
+                    }
+                )
+            else:
+                st.info("该课程在两个版本中的支撑情况完全一致，或该课程在任一版本中无数据。 সন")
