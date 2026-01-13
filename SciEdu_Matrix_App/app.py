@@ -13,6 +13,16 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# 隐藏右侧菜单和底部页脚 (保护开发者隐私)
+hide_st_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            header {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_st_style, unsafe_allow_html=True)
+
 # 定义数据目录 (使用绝对路径，适应云端部署)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, "data")
@@ -86,7 +96,7 @@ indicators_map = load_indicators_map(current_config["yaml"])
 st.sidebar.title("🔍 查询模式")
 mode = st.sidebar.radio(
     "请选择功能:",
-    ["课程反查 (查指标)", "指标反查 (查课程)", "📊 统计与对比", "全表浏览", "⚔️ 单课跨版对比"]
+    ["📚 课程反查 (查指标)", "📌 指标反查 (查课程)", "📊 统计与对比", "🔍 全表浏览", "👀 单课跨版对比"]
 )
 
 st.sidebar.markdown("---")
@@ -103,7 +113,7 @@ if df is None:
     st.stop()
 
 # === 模式 A: 课程查指标 ===
-if mode == "课程反查 (查指标)":
+if mode == "📚 课程反查 (查指标)":
     st.header(f"📘 课程 -> 毕业要求 ({selected_version})")
     st.caption("查看特定课程支撑了哪些毕业要求指标点，并获取详细描述。")
     
@@ -160,7 +170,7 @@ if mode == "课程反查 (查指标)":
                     st.info("该课程暂无关联指标点。")
 
 # === 模式 B: 指标查课程 ===
-elif mode == "指标反查 (查课程)":
+elif mode == "📌 指标反查 (查课程)":
     st.header(f"🎯 毕业要求 -> 支撑课程 ({selected_version})")
     st.caption("查看某个指标点由哪些课程来支撑。")
     
@@ -308,12 +318,12 @@ elif mode == "📊 统计与对比":
     st.plotly_chart(fig_dist, use_container_width=True)
 
 # === 模式 D: 全表浏览 ===
-elif mode == "全表浏览":
+elif mode == "🔍 全表浏览":
     st.header(f"📋 完整关联矩阵 ({selected_version})")
     st.dataframe(df, use_container_width=True, height=700)
 
 # === 模式 E: 单课跨版对比 ===
-elif mode == "⚔️ 单课跨版对比":
+elif mode == "👀 单课跨版对比":
     st.header("⚔️ 课程支撑度跨版本对比")
     df19 = load_data("matrix_2019.csv")
     df23 = load_data("matrix_2023.csv")
