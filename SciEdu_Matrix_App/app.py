@@ -13,12 +13,15 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# 隐藏右侧菜单和底部页脚 (保护开发者隐私)
+# 隐藏右侧菜单、底部页脚、顶部装饰条及工具栏 (保护开发者隐私)
 hide_st_style = """
             <style>
             #MainMenu {visibility: hidden;}
             footer {visibility: hidden;}
             header {visibility: hidden;}
+            .stDecoration {display:none;}
+            [data-testid="stToolbar"] {display: none;}
+            [data-testid="stHeader"] {display: none;}
             </style>
             """
 st.markdown(hide_st_style, unsafe_allow_html=True)
