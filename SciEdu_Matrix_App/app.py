@@ -34,7 +34,7 @@ VERSIONS = {
 
 # --- 2. 数据加载函数 (带缓存) ---
 @st.cache_data
-def load_data(file_name):
+def load_data(file_name, timestamp):
     file_path = os.path.join(DATA_DIR, file_name)
     if not os.path.exists(file_path):
         return None
@@ -90,7 +90,9 @@ selected_version = st.sidebar.selectbox(
 
 # 加载当前选中的数据
 current_config = VERSIONS[selected_version]
-df = load_data(current_config["csv"])
+_f_path = os.path.join(DATA_DIR, current_config["csv"])
+_ts = os.path.getmtime(_f_path) if os.path.exists(_f_path) else 0
+df = load_data(current_config["csv"], _ts)
 indicators_map = load_indicators_map(current_config["yaml"])
 
 st.sidebar.title("🔍 查询模式")
@@ -214,11 +216,16 @@ elif mode == "📌 指标反查 (查课程)":
 
 # === 模式 C: 数据统计与对比 (增强版) ===
 elif mode == "📊 统计与对比":
-    st.header("📈 版本全局对比统计分析")
+    st.header("📈 2023版对比2019版人才培养方案")
     
     # 加载两个版本数据
-    df19 = load_data("matrix_2019.csv")
-    df23 = load_data("matrix_2023.csv")
+    def load_with_ts(fname):
+        fp = os.path.join(DATA_DIR, fname)
+        ts = os.path.getmtime(fp) if os.path.exists(fp) else 0
+        return load_data(fname, ts)
+
+    df19 = load_with_ts("matrix_2019.csv")
+    df23 = load_with_ts("matrix_2023.csv")
     
     if df19 is None or df23 is None:
         st.error("无法进行对比：缺少 2019 或 2023 版数据文件。")
@@ -365,8 +372,14 @@ elif mode == "🔍 全表浏览":
 # === 模式 E: 单课跨版对比 ===
 elif mode == "👀 单课跨版对比":
     st.header("⚔️ 课程支撑度跨版本对比")
-    df19 = load_data("matrix_2019.csv")
-    df23 = load_data("matrix_2023.csv")
+    
+    def load_with_ts(fname):
+        fp = os.path.join(DATA_DIR, fname)
+        ts = os.path.getmtime(fp) if os.path.exists(fp) else 0
+        return load_data(fname, ts)
+
+    df19 = load_with_ts("matrix_2019.csv")
+    df23 = load_with_ts("matrix_2023.csv")
 
     if df19 is None or df23 is None:
         st.error("数据文件不全。")
