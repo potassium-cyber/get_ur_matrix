@@ -14,3 +14,9 @@ __pycache__/
 
 2019_matrix_with_课程代码.csv
 2023_matrix_with_课程代码.csv
+
+# Test Data & Temporary Files
+generate_test_data.py
+big_test_data.xlsx
+matrix_2019_H.csv
+README.md
