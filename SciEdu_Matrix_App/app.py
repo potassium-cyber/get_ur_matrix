@@ -41,12 +41,16 @@ def load_data(file_name, timestamp):
     
     try:
         # 读取CSV，自动处理 utf-8-sig (BOM) 和空行
-        df = pd.read_csv(file_path, encoding='utf-8-sig', skip_blank_lines=True)
+        df = pd.read_csv(file_path, encoding='utf-8-sig', skip_blank_lines=True, dtype={'课程编码': str})
         
         # 数据清洗：去除表头和内容的空格
         df.columns = df.columns.str.strip()
         df = df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
         
+        # 填充缺失的课程编码
+        if '课程编码' in df.columns:
+            df['课程编码'] = df['课程编码'].fillna('')
+
         # 确保第一列是 '课程名称'，如果是空的（比如之前的空行问题），drop掉
         if '课程名称' in df.columns:
             df = df.dropna(subset=['课程名称'])
@@ -80,6 +84,10 @@ def load_indicators_map(yaml_file):
         st.error(f"指标定义加载失败: {e}")
         return {}
 
+def get_indicator_cols(dataframe):
+    """获取所有指标点列（排除元数据列）"""
+    return [c for c in dataframe.columns if c not in ['课程名称', '课程编码']]
+
 # --- 3. 侧边栏导航 ---
 st.sidebar.title("🛠️ 版本选择")
 selected_version = st.sidebar.selectbox(
@@ -107,7 +115,7 @@ mode = st.sidebar.radio(
 
 st.sidebar.markdown("---")
 if df is not None:
-    st.sidebar.success(f"📊 {selected_version} 数据已加载\n\n共 **{len(df)}** 门课程\n**{len(df.columns)-1}** 个指标点")
+    st.sidebar.success(f"📊 {selected_version} 数据已加载\n\n共 **{len(df)}** 门课程\n**{len(get_indicator_cols(df))}** 个指标点")
 else:
     st.sidebar.warning(f"⚠️ {selected_version} 数据未找到")
 
@@ -132,13 +140,15 @@ if mode == "📚 课程反查 (查指标)":
     
     if selected_courses:
         for course in selected_courses:
-            with st.expander(f"📖 {course}", expanded=True):
-                # 提取该课程的一行
-                row = df[df['课程名称'] == course].iloc[0]
-                
+            # 提取该课程的一行
+            row = df[df['课程名称'] == course].iloc[0]
+            code = row.get('课程编码', '')
+            title = f"📖 {course} ({code})" if code else f"📖 {course}"
+
+            with st.expander(title, expanded=True):
                 # 筛选出有支撑强度的列
                 supported = []
-                for col in df.columns[1:]: # 跳过第一列'课程名称'
+                for col in get_indicator_cols(df):
                     val = row[col]
                     if pd.notna(val) and str(val).strip() != "":
                         # 获取描述文本
@@ -180,7 +190,7 @@ elif mode == "📌 指标反查 (查课程)":
     st.header(f"🎯 毕业要求 -> 支撑课程 ({selected_version})")
     st.caption("查看某个指标点由哪些课程来支撑。")
     
-    indicators = df.columns[1:].tolist()
+    indicators = get_indicator_cols(df)
     col1, col2 = st.columns([1, 2])
     
     with col1:
@@ -206,10 +216,19 @@ elif mode == "📌 指标反查 (查课程)":
         st.divider()
         if not filtered.empty:
             st.success(f"✅ 指标点 **{selected_ind}** 由以下 **{len(filtered)}** 门课程支撑:")
-            display_df = filtered[['课程名称', selected_ind]].copy()
-            display_df.columns = ['课程名称', '支撑强度']
+            
+            cols = ['课程名称', selected_ind]
+            if '课程编码' in filtered.columns:
+                cols.insert(0, '课程编码')
+            
+            display_df = filtered[cols].copy()
+            # Rename columns
+            rename_map = {selected_ind: '支撑强度'}
+            display_df.rename(columns=rename_map, inplace=True)
+            
             display_df['Rank'] = display_df['支撑强度'].map({'H': 0, 'M': 1, 'L': 2})
             display_df = display_df.sort_values('Rank').drop(columns=['Rank'])
+            
             st.dataframe(display_df, hide_index=True, use_container_width=True)
         else:
             st.warning(f"⚠️ 目前没有课程支撑指标点 {selected_ind}")
@@ -233,9 +252,10 @@ elif mode == "📊 统计与对比":
 
     # --- 1. 核心指标对比 (KPIs) ---
     def get_stats(dataframe):
-        m = dataframe.melt(id_vars=[dataframe.columns[0]], var_name='ind', value_name='val')
+        meta_cols = [c for c in dataframe.columns if c in ['课程名称', '课程编码']]
+        m = dataframe.melt(id_vars=meta_cols, var_name='ind', value_name='val')
         m = m[m['val'].notna() & (m['val'] != "")]
-        return len(dataframe), len(dataframe.columns)-1, len(m)
+        return len(dataframe), len(get_indicator_cols(dataframe)), len(m)
 
     c19_n, i19_n, r19_n = get_stats(df19)
     c23_n, i23_n, r23_n = get_stats(df23)
@@ -259,11 +279,15 @@ elif mode == "📊 统计与对比":
     # 计算有多少公共课程的指标发生了变化
     changed_courses = []
     for course in common_courses:
-        row19 = df19[df19['课程名称'] == course].iloc[0, 1:].dropna()
-        row23 = df23[df23['课程名称'] == course].iloc[0, 1:].dropna()
+        row19 = df19[df19['课程名称'] == course].iloc[0]
+        row23 = df23[df23['课程名称'] == course].iloc[0]
+        
+        inds19 = get_indicator_cols(df19)
+        inds23 = get_indicator_cols(df23)
+
         # 简化比较：转为 dict 后比较
-        d19 = {k: v for k, v in row19.items() if str(v).strip() != ""}
-        d23 = {k: v for k, v in row23.items() if str(v).strip() != ""}
+        d19 = {k: row19[k] for k in inds19 if pd.notna(row19[k]) and str(row19[k]).strip() != ""}
+        d23 = {k: row23[k] for k in inds23 if pd.notna(row23[k]) and str(row23[k]).strip() != ""}
         
         if d19 != d23:
             tags = []
@@ -322,7 +346,8 @@ elif mode == "📊 统计与对比":
     st.subheader("📊 指标点覆盖度对比 (2019 vs 2023)")
     
     def get_coverage(dataframe, label):
-        m = dataframe.melt(id_vars=[dataframe.columns[0]], var_name='指标点', value_name='val')
+        meta_cols = [c for c in dataframe.columns if c in ['课程名称', '课程编码']]
+        m = dataframe.melt(id_vars=meta_cols, var_name='指标点', value_name='val')
         m = m[m['val'].notna() & (m['val'] != "")]
         counts = m['指标点'].value_counts().reset_index()
         counts.columns = ['指标点', '支撑课程数']
@@ -345,7 +370,8 @@ elif mode == "📊 统计与对比":
     # --- 4. 支撑强度全局分布对比 ---
     st.subheader("🎨 支撑强度分布对比")
     def get_dist(dataframe, label):
-        m = dataframe.melt(id_vars=[dataframe.columns[0]], var_name='ind', value_name='强度')
+        meta_cols = [c for c in dataframe.columns if c in ['课程名称', '课程编码']]
+        m = dataframe.melt(id_vars=meta_cols, var_name='ind', value_name='强度')
         counts = m['强度'].value_counts().reset_index()
         counts.columns = ['强度', '数量']
         counts = counts[counts['强度'].isin(['H', 'M', 'L'])]
@@ -399,10 +425,23 @@ elif mode == "👀 单课跨版对比":
         target_course = search_res[0] if search_res else None
 
         if target_course:
+            # 获取课程代码
+            c19 = '-'
+            if target_course in df19['课程名称'].values:
+                c19 = df19[df19['课程名称'] == target_course].iloc[0].get('课程编码', '-')
+            
+            c23 = '-'
+            if target_course in df23['课程名称'].values:
+                c23 = df23[df23['课程名称'] == target_course].iloc[0].get('课程编码', '-')
+            
+            st.info(f"🔢 课程代码: **2019版 [{c19}]**  →  **2023版 [{c23}]**")
+
             def get_course_support(dataframe, course_name):
                 if course_name not in dataframe['课程名称'].values: return {}
                 row = dataframe[dataframe['课程名称'] == course_name].iloc[0]
-                return {k: v for k, v in row[1:].items() if pd.notna(v) and str(v).strip() != ""}
+                # Filter only indicator columns
+                indicator_cols = get_indicator_cols(dataframe)
+                return {k: v for k, v in row[indicator_cols].items() if pd.notna(v) and str(v).strip() != ""}
 
             s19 = get_course_support(df19, target_course)
             s23 = get_course_support(df23, target_course)
