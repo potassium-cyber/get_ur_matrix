@@ -13,15 +13,12 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# 隐藏右侧菜单、底部页脚、顶部装饰条及工具栏 (保护开发者隐私)
+# 隐藏右侧菜单、底部页脚、顶部装饰条 (保护开发者隐私)
 hide_st_style = """
             <style>
             #MainMenu {visibility: hidden;}
             footer {visibility: hidden;}
-            header {visibility: hidden;}
             .stDecoration {display:none;}
-            [data-testid="stToolbar"] {display: none;}
-            [data-testid="stHeader"] {display: none;}
             </style>
             """
 st.markdown(hide_st_style, unsafe_allow_html=True)
@@ -249,27 +246,47 @@ elif mode == "📊 统计与对比":
     common_courses = set19 & set23
     
     # 计算有多少公共课程的指标发生了变化
-    changed_mapping_count = 0
+    changed_courses = []
     for course in common_courses:
         row19 = df19[df19['课程名称'] == course].iloc[0, 1:].dropna()
         row23 = df23[df23['课程名称'] == course].iloc[0, 1:].dropna()
         # 简化比较：转为 dict 后比较
         d19 = {k: v for k, v in row19.items() if str(v).strip() != ""}
         d23 = {k: v for k, v in row23.items() if str(v).strip() != ""}
+        
         if d19 != d23:
-            changed_mapping_count += 1
+            tags = []
+            keys19, keys23 = set(d19.keys()), set(d23.keys())
+            
+            # 判断类型1: 指标点集合是否有变 (增减)
+            if keys19 != keys23:
+                tags.append("指标增减")
+            
+            # 判断类型2: 公共指标点的强度是否有变
+            common_keys = keys19 & keys23
+            if any(d19[k] != d23[k] for k in common_keys):
+                tags.append("强度调整")
+            
+            tag_label = " + ".join(tags)
+            changed_courses.append(f"{course} (`{tag_label}`)")
+    
+    changed_courses.sort()
 
     m1, m2, m3 = st.columns(3)
     with m1:
         st.info(f"🆕 **新开课程 ({len(added_courses)})**")
         with st.expander("点击查看详情"):
             for c in added_courses: st.write(f"- {c}")
+        st.caption("指2019版中不存在，2023版中新增加的课程。")
     with m2:
         st.warning(f"❌ **已停开/移除 ({len(removed_courses)})**")
         with st.expander("点击查看详情"):
             for c in removed_courses: st.write(f"- {c}")
+        st.caption("指2019版中存在，2023版中已停开或移除的课程。")
     with m3:
-        st.success(f"🔄 **指标点变动 ({changed_mapping_count})**")
+        st.success(f"🔄 **指标点变动 ({len(changed_courses)})**")
+        with st.expander("点击查看详情"):
+            for c in changed_courses: st.write(f"- {c}")
         st.caption("指课程名称相同，但支撑的指标点或强度发生了变化。")
 
     st.divider()
