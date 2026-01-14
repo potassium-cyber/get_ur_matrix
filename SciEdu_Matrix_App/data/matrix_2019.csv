@@ -11,11 +11,11 @@
 11111990,探究科学,L,L,,,,H,H,M,,L,L,,,,L,M,,H,
 11111980,探究科技,L,L,,,,H,H,M,,L,L,,,,L,M,,M,H
 25100060,教师语言,L,L,,,L,,,,M,H,,L,M,H,L,,,,M
-100010,教育实习,M,M,M,M,M,M,M,M,L,H,M,H,H,H,H,M,M,M,M
+100010,教育实习,H,M,M,M,H,M,H,M,L,H,M,H,H,H,H,M,H,H,M
 11118371,教育见习I,M,M,M,M,M,M,M,M,L,H,M,H,H,H,H,M,M,L,L
 11118372,教育见习II,M,M,M,M,M,M,M,M,L,H,M,H,H,H,H,M,M,L,L
 11118373,教育见习III,M,M,M,M,M,M,M,M,L,H,M,H,H,H,H,M,M,L,L
-11110070,毕业论文,L,L,,,L,M,M,H,M,M,M,,,L,L,,H,,L
+11110070,毕业论文,L,H,,,L,M,M,H,M,H,M,,,L,H,,H,,L
 11191050,科技英语,L,L,,,L,L,L,,,,H,,,,L,H,H,M,
 7190120,高等数学I,L,L,,,L,H,H,M,,,,,,,L,,,,
 7190130,高等数学II,L,L,,,L,H,H,M,,,,,,,L,,,,
