@@ -94,9 +94,13 @@ df = load_data(current_config["csv"])
 indicators_map = load_indicators_map(current_config["yaml"])
 
 st.sidebar.title("🔍 查询模式")
+if "mode" not in st.session_state:
+    st.session_state.mode = "📚 课程反查 (查指标)"
+
 mode = st.sidebar.radio(
     "请选择功能:",
-    ["📚 课程反查 (查指标)", "📌 指标反查 (查课程)", "📊 统计与对比", "🔍 全表浏览", "👀 单课跨版对比"]
+    ["📚 课程反查 (查指标)", "📌 指标反查 (查课程)", "📊 统计与对比", "🔍 全表浏览", "👀 单课跨版对比"],
+    key="mode"
 )
 
 st.sidebar.markdown("---")
@@ -283,10 +287,26 @@ elif mode == "📊 统计与对比":
         with st.expander("点击查看详情"):
             for c in removed_courses: st.write(f"- {c}")
         st.caption("指2019版中存在，2023版中已停开或移除的课程。")
+    # 定义回调函数，用于跳转
+    def jump_to_comparison(c_name):
+        st.session_state.mode = "👀 单课跨版对比"
+        st.session_state.target_course_list = [c_name]
+
     with m3:
         st.success(f"🔄 **指标点变动 ({len(changed_courses)})**")
         with st.expander("点击查看详情"):
-            for c in changed_courses: st.write(f"- {c}")
+            for item in changed_courses:
+                # item format: "CourseName (`Tags`)"
+                c_name = item.split(" (`")[0]
+                c_col1, c_col2 = st.columns([0.75, 0.25])
+                c_col1.markdown(f"- {item}")
+                c_col2.button(
+                    "对比", 
+                    key=f"jump_{c_name}", 
+                    help=f"跳转至 {c_name} 对比页面",
+                    on_click=jump_to_comparison,
+                    args=(c_name,)
+                )
         st.caption("指课程名称相同，但支撑的指标点或强度发生了变化。")
 
     st.divider()
@@ -352,7 +372,17 @@ elif mode == "👀 单课跨版对比":
         st.error("数据文件不全。")
     else:
         all_courses = sorted(list(set(df19['课程名称'].dropna()) | set(df23['课程名称'].dropna())))
-        search_res = st.multiselect("🔍 选择课程:", options=all_courses, max_selections=1)
+        
+        # 确保 session_state 初始化，防止报错
+        if "target_course_list" not in st.session_state:
+            st.session_state.target_course_list = []
+
+        search_res = st.multiselect(
+            "🔍 选择课程:", 
+            options=all_courses, 
+            max_selections=1, 
+            key="target_course_list"
+        )
         target_course = search_res[0] if search_res else None
 
         if target_course:
