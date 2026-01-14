@@ -13,10 +13,9 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# 隐藏右侧菜单、底部页脚、顶部装饰条 (保护开发者隐私)
+# 隐藏底部页脚、顶部装饰条
 hide_st_style = """
             <style>
-            #MainMenu {visibility: hidden;}
             footer {visibility: hidden;}
             .stDecoration {display:none;}
             </style>
@@ -109,7 +108,7 @@ if "mode" not in st.session_state:
 
 mode = st.sidebar.radio(
     "请选择功能:",
-    ["📚 课程反查 (查指标)", "📌 指标反查 (查课程)", "📊 统计与对比", "🔍 全表浏览", "👀 单课跨版对比"],
+    ["📚 课程反查 (查指标)", "📌 指标反查 (查课程)", "📊 统计与对比", "👀 单课跨版对比", "🔍 全表浏览"],
     key="mode"
 )
 
@@ -162,11 +161,10 @@ if mode == "📚 课程反查 (查指标)":
                 if supported:
                     res_df = pd.DataFrame(supported)
                     def color_coding(val):
-                        color = 'black'
-                        if val == 'H': color = '#d9534f' 
-                        elif val == 'M': color = '#f0ad4e'
-                        elif val == 'L': color = '#5bc0de'
-                        return f'color: {color}; font-weight: bold'
+                        if val == 'H': return 'color: #d9534f; font-weight: bold'
+                        elif val == 'M': return 'color: #f0ad4e; font-weight: bold'
+                        elif val == 'L': return 'color: #5bc0de; font-weight: bold'
+                        return '' 
 
                     st.dataframe(
                         res_df.style.applymap(color_coding, subset=['支撑强度']),
@@ -390,12 +388,7 @@ elif mode == "📊 统计与对比":
     )
     st.plotly_chart(fig_dist, use_container_width=True)
 
-# === 模式 D: 全表浏览 ===
-elif mode == "🔍 全表浏览":
-    st.header(f"📋 完整关联矩阵 ({selected_version})")
-    st.dataframe(df, use_container_width=True, height=700)
-
-# === 模式 E: 单课跨版对比 ===
+# === 模式 D: 单课跨版对比 ===
 elif mode == "👀 单课跨版对比":
     st.header("⚔️ 课程支撑度跨版本对比")
     
@@ -464,3 +457,8 @@ elif mode == "👀 单课跨版对比":
                 st.dataframe(comp_df.style.apply(style_change, axis=1), use_container_width=True, hide_index=True)
             else:
                 st.info("无对比数据。")
+
+# === 模式 E: 全表浏览 ===
+elif mode == "🔍 全表浏览":
+    st.header(f"📋 完整关联矩阵 ({selected_version})")
+    st.dataframe(df, use_container_width=True, height=700)
