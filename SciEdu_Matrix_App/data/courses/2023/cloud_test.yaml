@@ -1,0 +1,6 @@
+course_name: "☁️ 云端测试导论"
+course_code: "CLOUD101"
+credits: 99
+semester: "第1学期"
+type: "必修"
+description: "这是一门用来测试 Streamlit Cloud 同步功能的虚拟课程。"

@@ -1,0 +1,339 @@
+course_info:
+  code: "11113080"
+  name: "创新创造能力训练 I"
+  name_en: "Innovation Ability Training I"
+  credits: 1.5
+  hours: 32
+  practical_hours: 16
+  term: 1
+  prerequisites: "无"
+  department: "物理科学与技术学院"
+  major: "科学教育（2023-2026级）"
+  author: "车潇洋"
+  responsible: "车潇洋"
+  reviewer: "周小燕"
+  date: "2023年12月"
+
+course_attribute:
+  type: "实践课程"
+  hours_distribution:
+    total: 32
+    theory: 16
+    practice: 16
+
+config:
+  standard_version: "2023"
+  templates:
+    rubric: "components/evaluation_rubric_complex.tex.j2"
+
+course_introduction: |
+  《创新创造能力训练I》是面向科学教育专业大一新生的重要入门课程，旨在培养和提升学生的创新创造能力。
+  本课程聚焦于实用技能与创新思维的结合，通过教授如3D打印机、激光切割机、木工机床、雕刻刀具等创客基本工具的操作使用，引导学生从实践中学习和掌握创新工具。
+
+  课程特色在于结合了Blender这一强大的三维建模软件，引领学生进入三维设计的世界。
+  通过Blender，学生将学习如何从零开始设计三维模型，并将这些设计通过3D打印技术实现出来。
+  这一过程不仅锻炼了学生的动手操作能力，而且促进了他们将抽象概念转化为实物的能力，这是创新思维的关键组成部分。
+
+  同时，课程注重创新思维模式的建立，不仅仅是技能的传授。学生将通过解决实际问题和项目驱动的方式，来培养解决问题的创新思路，
+  并在实际操作中不断完善和优化自己的设计。
+
+  此外，《创新创造能力训练I》为学生日后参与更高阶的专业课程，如STEM教育与创客教育、科学探究、科技探究等，提供了必要的知识储备和技能训练。
+  通过本课程的学习，学生将为未来在科学教育和创新实践领域的深入学习和研究打下坚实的基础。
+
+overall_goals:
+  - id: "知识目标"
+    description: >-
+      本课程旨在使学生掌握三维设计的基础理论，包括 Blender 软件的操作技巧，以及 3D 打印机和其他创客工具的应用知识。
+      学生将学习识别各种工具的特性，理解它们在实际创新过程中的应用，并熟悉从需求分析到设计实施的完整创新设计流程。
+
+  - id: "能力目标"
+    description: >-
+      课程将培养学生独立完成创新项目的能力。学生将通过实际操作，掌握从创意生成、三维建模到实体制作的全过程。
+      此外，课程也将强化学生的实际问题解决能力和项目管理技能，以便在团队环境中有效地沟通和合作，将理论知识应用到创新实践中。
+
+  - id: "素质目标"
+    description: >-
+      课程着重于培育学生的创新意识和探索精神，鼓励他们在面对挑战时展现批判性思维和独立解决问题的能力。同时，课程也致力于加强学生的持续学习意识、
+      伦理观念和社会责任感，确保学生在追求技术创新的同时，能够考虑到其对社会和环境的长远影响。
+
+course_objectives:
+  - id: 1
+    delivery: "案例演示与跟随练习、机房实操指导、三维设计思维训练"
+    evaluation: "基础模型建模作业、课堂实操测试"
+    description: >-
+      学生将能够完整地理解三维设计的基本概念，包括空间感知、几何建模和纹理映射。
+      他们将会使用Blender软件进行基本的三维建模，熟悉界面布局、工具和功能，并能够创建简单的三维场景和物体。
+  
+  - id: 2
+    delivery: "设备操作演示、切片软件实训、故障排查工作坊"
+    evaluation: "模型打印成品质量评价、打印日志记录"
+    description: >-
+      学生将掌握3D打印技术的核心原理和操作方法。
+      他们将学习如何准备三维模型以进行打印，包括缩放、切片和支撑结构的设置。
+      学生将能够独立完成从模型设计到打印成型的全过程，并对打印结果进行基本的后处理。
+
+  - id: 3
+    delivery: "项目管理工作坊、团队破冰活动、甘特图绘制指导"
+    evaluation: "项目进度汇报、团队协作互评表"
+    description: >-
+      课程将培养学生的项目设计和管理能力。学生将通过团队合作完成至少一个创新项目，从构思到成品。
+      这个过程中，他们将会如何进行项目规划、分工、时间管理，并进行有效的团队沟通和协调。
+
+  - id: 4
+    delivery: "设计思维(Design Thinking)研讨、头脑风暴、原型迭代指导"
+    evaluation: "创新作品路演、设计迭代文档"
+    description: >-
+      学生将发展出一套完整的创新思维模式。包括如何进行创意激发、快速原型设计和迭代改进。
+      他们将会如何使用批判性思维来评估和优化设计方案，并能够在创新过程中考虑用户体验和市场需求。
+
+analysis_and_improvement:
+  summary_intro: >-
+    本课程注重“学思用创”的有机结合，学生整体动手能力提升显著，但在将创意转化为工程可行的三维模型时，
+    部分学生仍存在“眼高手低”现象，需要进一步强化从设计到制造的工程化思维训练。
+  improvement_plan:
+    - title: "优化设备配比"
+      content: "针对打印机排队现象，引入预约系统并增加并联打印时段，提高设备周转率。"
+    - title: "强化工程约束"
+      content: "在建模阶段提前引入壁厚、悬空等打印工艺规范的讲解，减少因模型不规范导致的返工。"
+    - title: "引入AI辅助"
+      content: "尝试引入AI绘画工具辅助前期创意生成，帮助学生快速具象化灵感，将精力更多聚焦于结构实现。"
+
+mapping_matrix:
+  - co_id: 1
+    requirements:
+      - {req_id: "3-1", level: "H"}
+      - {req_id: "3-2", level: "H"}
+      - {req_id: "3-3", level: "M"}
+      
+  - co_id: 2
+    requirements:
+      - {req_id: "3-1", level: "H"}
+      - {req_id: "3-2", level: "H"}
+      - {req_id: "3-3", level: "M"}
+
+  - co_id: 3
+    requirements:
+      - {req_id: "1-1", level: "L"}
+      - {req_id: "1-2", level: "L"}
+      - {req_id: "4-3", level: "L"}
+      - {req_id: "6-2", level: "L"}
+      - {req_id: "8-2", level: "H"}
+
+  - co_id: 4
+    requirements:
+      - {req_id: "1-1", level: "L"}
+      - {req_id: "1-2", level: "L"}
+      - {req_id: "2-2", level: "L"}
+      - {req_id: "3-2", level: "H"}
+      - {req_id: "3-3", level: "M"}
+      - {req_id: "4-3", level: "L"}
+      - {req_id: "6-2", level: "L"}
+      - {req_id: "7-1", level: "M"}
+
+chapters:
+  - chapter_number: "一"
+    title: "绪论与数字制造概览"
+    objectives_supported: "1、4"
+    content: |
+      §1 创新创造与创客文化
+      §2 数字制造双璧：增材(3D打印)与减材(激光切割)
+      §3 实验室安全与设备操作规范
+    requirements: "了解数字制造技术体系，掌握实验室安全知识。"
+
+  - chapter_number: "二"
+    title: "Blender 基础建模与视口操作"
+    objectives_supported: "1、4"
+    content: |
+      §1 Blender 界面布局与快捷键体系
+      §2 网格编辑基础：点线面的操作
+      §3 简单几何体（如积木、杯子）的建模练习
+    requirements: "熟练掌握 Blender 视口操作，完成简单物品建模。"
+
+  - chapter_number: "三"
+    title: "Blender 进阶：修改器与雕刻"
+    objectives_supported: "1、4"
+    content: |
+      §1 常用修改器：细分、倒角、布尔运算
+      §2 雕刻模式入门：有机形态的塑造
+      §3 案例实操：卡通形象或复杂曲面设计
+    requirements: "运用修改器或雕刻工具制作一个具有有机形态的模型。"
+
+  - chapter_number: "四"
+    title: "材质、渲染与动画基础"
+    objectives_supported: "1、4"
+    content: |
+      §1 材质与纹理节点的应用
+      §2 渲染引擎设置与灯光布置
+      §3 基础关键帧动画制作
+    requirements: "为模型添加材质并渲染出图，制作简单的旋转动画。"
+
+  - chapter_number: "五"
+    title: "3D 打印工艺全流程"
+    objectives_supported: "2、4"
+    content: |
+      §1 FDM 打印机结构与材料特性 (PLA/ABS)
+      §2 切片软件深度解析：层高、壁厚、填充
+      §3 支撑结构的类型与添加技巧
+    requirements: "独立完成复杂模型的切片处理与G-code导出。"
+
+  - chapter_number: "六"
+    title: "3D 打印实战：功能性部件设计"
+    objectives_supported: "2、3、4"
+    content: |
+      §1 工程思维：公差配合与活动结构设计
+      §2 案例：手机支架或可动关节玩偶
+      §3 打印故障排查（堵头、翘边）与维护
+    requirements: "设计并打印一个包含配合结构的实用功能部件。"
+
+  - chapter_number: "七"
+    title: "二维设计与激光切割原理"
+    objectives_supported: "2、4"
+    content: |
+      §1 激光加工原理与材料适配（木板/亚克力）
+      §2 矢量图设计基础：LaserMaker/CorelDRAW
+      §3 图像处理：位图转矢量的技巧
+    requirements: "绘制并切割一个个性化 Logo 挂件。"
+
+  - chapter_number: "八"
+    title: "激光切割进阶：结构设计"
+    objectives_supported: "2、3、4"
+    content: |
+      §1 平面转立体：层叠结构设计
+      §2 榫卯结构原理：盒子生成器与手动修正
+      §3 案例：多层装饰画或收纳盒
+    requirements: "设计并制作一个利用榫卯或层叠结构的立体作品。"
+
+  - chapter_number: "九"
+    title: "综合创新项目实战"
+    objectives_supported: "3、4"
+    content: |
+      §1 项目选题与思维导图绘制
+      §2 3D 打印与激光切割的综合应用
+      §3 作品迭代、组装与最终路演
+    requirements: "小组合作完成一个融合两种技术的综合创新作品。"
+
+schedule:
+  - {seq: 1, name: "绪论与数字制造概览", total: 2, theory: 2, practice: 0}
+  - {seq: 2, name: "Blender 基础：界面与网格编辑", total: 2, theory: 1, practice: 1}
+  - {seq: 3, name: "Blender 进阶：修改器应用", total: 2, theory: 0, practice: 2}
+  - {seq: 4, name: "Blender 进阶：雕刻与有机形态", total: 2, theory: 0, practice: 2}
+  - {seq: 5, name: "Blender 拓展：材质与渲染基础", total: 2, theory: 1, practice: 1}
+  - {seq: 6, name: "3D 打印原理与切片技术", total: 2, theory: 1, practice: 1}
+  - {seq: 7, name: "3D 打印实战：基础模型打印", total: 2, theory: 0, practice: 2}
+  - {seq: 8, name: "3D 打印实战：活动结构设计", total: 2, theory: 0, practice: 2}
+  - {seq: 9, name: "3D 打印实战：问题排查与优化", total: 2, theory: 0, practice: 2}
+  - {seq: 10, name: "激光切割原理与矢量绘图", total: 2, theory: 1, practice: 1}
+  - {seq: 11, name: "激光切割实战：平面创意作品", total: 2, theory: 0, practice: 2}
+  - {seq: 12, name: "结构设计：层叠与榫卯", total: 2, theory: 1, practice: 1}
+  - {seq: 13, name: "激光切割实战：立体作品制作", total: 2, theory: 0, practice: 2}
+  - {seq: 14, name: "期末项目：选题与方案设计", total: 2, theory: 0, practice: 2}
+  - {seq: 15, name: "期末项目：原型制作与迭代", total: 2, theory: 0, practice: 2}
+  - {seq: 16, name: "期末项目：最终展示与答辩", total: 2, theory: 0, practice: 2}
+
+teaching_methods:
+  - title: "实践中学，学中实践"
+    content: "3D 打印和设计是一门高度实践性的课程，因此教学中应注重理论与实践的结合。在理论讲授时，应引入真实案例进行解析，让学生在实验室中动手操作。"
+  - title: "分层次教学，循序渐进"
+    content: "针对不同的学生基础，采用分层次的教学方法。对基础薄弱的学生，首先要加强基础知识的教学；对基础较好的学生，则可以提供更多的提高和挑战性任务。"
+  - title: "互动式学习"
+    content: "鼓励学生参与到课堂讨论中，通过提问、回答和小组讨论等形式，增加课堂互动性，提高学生的学习兴趣和参与度。"
+  - title: "案例驱动教学"
+    content: "结合实际案例进行教学，让学生在解决具体问题的过程中学习相关的3D打印和设计知识。"
+  - title: "创新与批判性思维"
+    content: "在授课过程中，教师应鼓励学生进行自主学习和创新思考。通过设计项目任务，激发学生的创新意识和批判性思维能力。"
+  - title: "评价与反馈"
+    content: "设计阶段性的评估和即时反馈机制，及时了解学生的学习进度和理解程度。通过作业、项目展示和同行评价等多种方式，既考核学生的学习成果，也提供改进的机会。"
+
+assessment:
+  intro: "包括过程性评价和期末考试。其中过程性评价占40%（出勤情况占20%，课堂活动占40%，课后作业40%）【见过程性评价量规表】，期末考试成绩占60%。"
+  methods:
+    - {target: "课程目标 1", attendance: "30-70", activity: "30-70", homework: "30-70", final: "30-70"}
+    - {target: "课程目标 2", attendance: "20-40", activity: "20-40", homework: "20-40", final: "20-40"}
+    - {target: "课程目标 3", attendance: "20-40", activity: "20-40", homework: "20-40", final: "20-40"}
+    - {target: "课程目标 4", attendance: "20-40", activity: "20-40", homework: "20-40", final: "20-40"}
+
+textbooks:
+  - "Oliver Villar，《玩转Blender》，中国工信出版集团，电子工业出版社，2022年。"
+  - "钟平福，《3D打印入门及案例详解》，化学工业出版社，2019年4月。"
+  - "龙丽嫦、高伟光，《激光切割与LaserMaker建模》，人民邮电出版社，2020年。"
+  - "参考书目：Blender官方文档"
+
+grading_criteria:
+  - id: 1
+    excellent: "深刻理解三维设计概念（空间、几何、纹理），熟练掌握Blender建模技巧，能独立创建复杂且高质量的三维场景。"
+    good: "较好理解三维设计概念，掌握Blender基本操作，能创建完整的简单三维场景。"
+    average: "基本理解三维概念，能使用Blender创建基础几何体和简单组合。"
+    fail: "缺乏三维概念，无法使用软件完成基本的建模任务。"
+  - id: 2
+    excellent: "精通3D打印原理与操作，切片/支撑设置合理，独立完成高质量打印及后处理。"
+    good: "掌握打印原理，能独立完成模型打印全过程，打印质量良好。"
+    average: "了解基本原理，在指导下能完成简单模型打印，质量尚可。"
+    fail: "不理解打印原理，无法独立完成打印任务或打印失败。"
+  - id: 3
+    excellent: "项目规划清晰，团队协作高效，沟通顺畅，成品完成度高且富有创意。"
+    good: "有项目规划，团队协作良好，按时完成项目，成品质量较好。"
+    average: "项目规划一般，能参与团队合作，基本完成项目要求。"
+    fail: "无项目规划，团队协作困难，未能完成项目或成品质量差。"
+  - id: 4
+    excellent: "具备卓越的创新思维和批判性思维，能根据用户需求进行有效迭代和优化。"
+    good: "具有较好的创新意识，能对设计方案进行一定的评估和改进。"
+    average: "创新意识一般，能完成基本设计，缺乏深度思考和改进。"
+    fail: "缺乏创新思维，设计照搬照抄，无法进行方案评估。"
+
+evaluation_rubric:
+  - element: "出勤情况\n（20分）"
+    dimension: "自主学习"
+    metric: "学习态度"
+    excellent: "无旷课、迟到、早退，遵守实验室安全规定。"
+    good: "无旷课，偶有迟到或请假，基本遵守规定。"
+    average: "偶有旷课，迟到、早退或请假，偶尔违反规定。"
+    fail: "经常旷课，迟到、早退，严重违反实验室规定。"
+  - element: "课堂活动\n（40分）"
+    dimension: "听课状态 （20%）"
+    metric: "学习态度"
+    excellent: "专注听取建模演示与操作讲解，积极互动，无违纪。"
+    good: "较专注听讲，能参与互动，无睡觉溜号。"
+    average: "听课一般，少参与互动，偶有精神不集中。"
+    fail: "听课不认真，不参与互动，睡觉或玩手机。"
+  - element: "课堂活动\n（40分）"
+    dimension: "回答问题 （20%）"
+    metric: "学科素养"
+    excellent: "准确回答3D设计与打印相关问题，思路清晰。"
+    good: "回答大部分正确，对核心概念理解较好。"
+    average: "回答少部分正确，对基本概念理解一般。"
+    fail: "回答错误，缺乏对课程知识的理解。"
+  - element: "课堂活动\n（40分）"
+    dimension: "课堂小测 （20%）"
+    metric: "专业知识"
+    excellent: "建模与打印操作测试基本全对，掌握扎实。"
+    good: "测试大部分正确，掌握主要操作步骤。"
+    average: "测试少部分正确，仅掌握基础操作。"
+    fail: "测试错误较多，未掌握基本操作。"
+  - element: "课堂活动\n（40分）"
+    dimension: "小组合作 （40%）"
+    metric: "合作意识"
+    excellent: "积极参与项目设计，分工明确，高效协作。"
+    good: "较强合作意愿，分工较明确，能配合完成。"
+    average: "有基本合作意愿，分工一般，能完成基本任务。"
+    fail: "无合作意愿，分工不明确，无法完成协作。"
+  - element: "课堂活动\n（40分）"
+    dimension: "小组合作 （40%）"
+    metric: "学习态度"
+    excellent: "认真互评模型作业，详细指出布线与结构优缺点。"
+    good: "能完成互评，指出主要优缺点。"
+    average: "完成互评，能给出简单修改建议。"
+    fail: "不能完成互评，或评价敷衍。"
+  - element: "课堂活动\n（40分）"
+    dimension: "小组合作 （40%）"
+    metric: "学科素养"
+    excellent: "作品展示（PPT/实物）美观，设计理念阐述清晰，逻辑严密。"
+    good: "作品展示较美观，能阐述设计理念，条理较清晰。"
+    average: "作品展示一般，能基本表达设计意图。"
+    fail: "作品展示潦草，无法清楚表达设计意图。"
+  - element: "课后作业\n（40分）"
+    dimension: "专业能力"
+    metric: "学科素养"
+    excellent: "模型布线规范，切片设置合理，打印成功率高，文档规范。"
+    good: "模型较规范，切片设置基本正确，打印效果较好。"
+    average: "模型有缺陷，切片有误，打印效果一般。"
+    fail: "模型无法打印，切片错误，作业未完成。"
