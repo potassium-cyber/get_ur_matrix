@@ -1,0 +1,204 @@
+# ==========================================
+# SciEdu Docs - 课程数据 (Course Data)
+# ==========================================
+# Generated based on PDF content: 法语视界：语言与文化入门
+# ==========================================
+
+course_info:
+  code: "66112489"
+  name: "法语视界：语言与文化入门"
+  name_en: "French Horizons: An Introduction to Language and Culture"
+  credits: 1.0
+  hours: 16
+  practical_hours: 0
+  term: 1
+  prerequisites: "无"
+  department: "物理科学与技术学院"
+  major: "全校本科生"
+  author: "车潇洋"
+  responsible: "车潇洋"
+  reviewer: "车潇洋"
+  date: "2024年5月13日"
+
+course_attribute:
+  type: "通识教育选修课程"
+  hours_distribution:
+    total: 16
+    theory: 16
+    practice: 0
+
+config:
+  standard_version: "2023"
+  templates:
+    rubric: "components/evaluation_rubric_simple.tex.j2"
+
+course_introduction: |
+  随着 2024 年标志着中法建交 60 周年，两国之间的文化和教育交流愈发显得重要。在这样一个里程碑式的时刻，提供一个了解法语及其文化背景的课程，对于促进中法友好关系和增进相互理解具有特别的意义。《法语视界：语言与文化入门》正是在这一背景下，作为全校性的通识教育选修课程，面向全校本科生开设的。
+  本课程旨在为学生提供一个法语语言学习机会，并深入探讨法国以及其他法语国家的丰富文化。课程内容分为三大部分：语言学习、文化理解与应用实践，覆盖从基础法语到法语国家的历史、艺术、风俗习惯等多方面知识。
+  1. 语言学习：着重于法语的基础知识，包括发音、语法、词汇及日常会话。通过系统的讲解和大量的练习，帮助学生建立坚实的语言基础。
+  2. 文化理解：深入讲解法国的历史背景、艺术成就、社会习俗及当前社会问题等。
+  3. 应用实践：旨在将学生在语言学习和文化理解方面的知识应用于实际情境中。
+  总之，《法语视界：语言与文化入门》不仅是一门语言课程，更是一扇了解和接触法国及法语世界多元文化的窗口。
+
+course_objectives:
+  - id: 1
+    delivery: "多媒体教学、互动对话练习"
+    evaluation: "平时作业、期末测试"
+    description: >-
+      掌握基础法语知识和语言技能：学生将学习法语的基本语法、词汇和发音，能够进行基本的日常交流，并理解简单的法语文本。
+  - id: 2
+    delivery: "多媒体教学、反思写作"
+    evaluation: "平时作业、期末测试"
+    description: >-
+      了解法国及法语国家的文化背景：通过课程学习，学生将对法国以及其他法语国家的历史、传统、艺术、文学和社会习俗有基本的认识和理解，提升文化全球视野。
+  - id: 3
+    delivery: "小组讨论、角色扮演"
+    evaluation: "平时表现、期末测试"
+    description: >-
+      培养跨文化交流能力：强调语言学习与文化理解的结合，使学生能够在不同文化间进行有效沟通，增强对多样文化的尊重和理解。
+  - id: 4
+    delivery: "案例分析、反思写作"
+    evaluation: "平时作业、期末报告"
+    description: >-
+      提高批判思维与分析能力：通过分析法语国家的文化和社会问题，培养学生的批判精神和问题分析能力，使学生能够从多角度理解和评价跨文化现象。
+  - id: 5
+    delivery: "综合复习、文化表演"
+    evaluation: "平时表现、期末展示"
+    description: >-
+      激发对外语学习的兴趣和终身学习的动力：通过丰富多彩的语言学习和文化体验活动，激发学生对法语及其文化的持续兴趣，培养终身学习的意识和能力。
+
+analysis_and_improvement:
+  summary_intro: >-
+    (新开课程，暂无上轮总结)
+  improvement_plan: []
+
+mapping_matrix:
+  - co_id: 1
+    requirements:
+      - {req_id: "2", level: "H"} # 知识技能
+  - co_id: 2
+    requirements:
+      - {req_id: "1", level: "M"} # 职业道德
+  - co_id: 3
+    requirements:
+      - {req_id: "1", level: "M"} # 职业道德
+      - {req_id: "4", level: "H"} # 实践创新
+      - {req_id: "5", level: "H"} # 交流合作
+  - co_id: 4
+    requirements:
+      - {req_id: "3", level: "H"} # 问题分析
+      - {req_id: "4", level: "H"} # 实践创新
+  - co_id: 5
+    requirements:
+      - {req_id: "6", level: "H"} # 终身学习
+
+chapters:
+  - chapter_number: 1
+    title: "绪论及法语基础入门：语音与日常用语"
+    objectives_supported: "1、2"
+    content: "介绍法语的基本语音和简单常用语；通过对话练习帮助学生了解基础语法结构，如问候语、自我介绍以及简单的日常对话。"
+    requirements: null
+  - chapter_number: 2
+    title: "法国文化概览：地理、历史与文化符号"
+    objectives_supported: "3、4"
+    content: "探索法国的地理、历史和重要文化符号，例如艺术、美食和节日；课堂上将通过图片和视频资料带领学生进行虚拟旅行体验。"
+    requirements: null
+  - chapter_number: 3
+    title: "日常法语对话练习：角色扮演"
+    objectives_supported: "1、2"
+    content: "通过角色扮演练习常见的日常场景对话，如在餐厅点餐、在商店购物等，以增强学生的实际语言应用能力。"
+    requirements: null
+  - chapter_number: 4
+    title: "法国电影鉴赏：文化与语言分析"
+    objectives_supported: "3、4、5"
+    content: "观看一部经典法国电影，通过电影了解法国的社会文化和语言表达；观影过程中，教师将指出电影中的文化元素和语言特点。"
+    requirements: null
+  - chapter_number: 5
+    title: "法语音乐与文学：深入文学作品与歌曲"
+    objectives_supported: "3、4"
+    content: "深入探讨法国文学和音乐，特别关注经典文学作品如《小王子》和《巴黎圣母院》，以及一些知名的法语歌曲。"
+    requirements: null
+  - chapter_number: 6
+    title: "日常用语和旅游法语：模拟练习"
+    objectives_supported: "1、2"
+    content: "专注于旅游时使用的法语，如问路、订酒店和紧急情况下的交流；通过模拟练习帮助学生准备实际旅行中可能遇到的语言情境。"
+    requirements: null
+  - chapter_number: 7
+    title: "法国美食探索：美食文化与制作"
+    objectives_supported: "3、4"
+    content: "探讨法国的美食文化，介绍代表性的法国菜肴如法式面包、奶酪、葡萄酒等；通过视频和图片展示不同地区的特色美食。"
+    requirements: null
+  - chapter_number: 8
+    title: "课程复习与文化交流"
+    objectives_supported: "1、3、5"
+    content: "课程的最后一讲将是一个综合性复习，回顾过去七周学习的重点内容；同时，举行一个小型的文化交流活动。"
+    requirements: null
+
+schedule:
+  - {seq: 1, name: "第一讲：绪论及法语基础入门", total: 2, theory: 2, practice: 0}
+  - {seq: 2, name: "第二讲：法国文化概览", total: 2, theory: 2, practice: 0}
+  - {seq: 3, name: "第三讲：日常法语对话练习", total: 2, theory: 2, practice: 0}
+  - {seq: 4, name: "第四讲：法国电影鉴赏", total: 2, theory: 2, practice: 0}
+  - {seq: 5, name: "第五讲：法语音乐与文学", total: 2, theory: 2, practice: 0}
+  - {seq: 6, name: "第六讲：日常用语和旅游法语", total: 2, theory: 2, practice: 0}
+  - {seq: 7, name: "第七讲：法国美食探索", total: 2, theory: 2, practice: 0}
+  - {seq: 8, name: "第八讲：课程复习与文化交流", total: 2, theory: 2, practice: 0}
+
+teaching_methods:
+  - title: "多媒体教学"
+    content: "利用视频、音频和图片材料来丰富教学内容。例如，使用法语发音视频帮助学生掌握正确发音，通过虚拟旅行视频介绍法国的地理和文化。"
+  - title: "互动对话练习"
+    content: "通过角色扮演和模拟练习，设置具体的日常生活或旅游相关场景，让学生在实际语境中使用法语进行交流。"
+  - title: "小组讨论与合作学习"
+    content: "鼓励学生在小组内进行讨论和合作，探索特定的文化主题或准备口头报告。"
+  - title: "反思写作与文化分析"
+    content: "通过观看法国电影或听法语歌曲后，要求学生撰写观后感或歌词分析，从而深入探讨文化主题和语言表达。"
+  - title: "口头报告"
+    content: "学生需要对选定的法国文化符号或美食进行深入研究，并在课堂上进行口头报告。"
+  - title: "综合复习与文化表演"
+    content: "通过组织问答、小测验或文化表演，回顾和巩固课程内容，同时允许学生通过创造性的方式展示他们对法语和法国文化的理解。"
+
+assessment:
+  intro: "课程考核方式包括平时成绩（40%）和期末考试成绩（60%）。平时成绩基于参与度、作业、小组讨论和语言练习；期末内容包括实际应用测试和文化分析报告。"
+  methods:
+    # 映射 PDF 表格中的权重 (均为 20/20 分布)
+    - {target: "课程目标 1", attendance: "0", activity: "0", homework: "20", final: "20"}
+    - {target: "课程目标 2", attendance: "0", activity: "0", homework: "20", final: "20"}
+    - {target: "课程目标 3", attendance: "0", activity: "0", homework: "20", final: "20"}
+    - {target: "课程目标 4", attendance: "0", activity: "0", homework: "20", final: "20"}
+    - {target: "课程目标 5", attendance: "0", activity: "0", homework: "20", final: "20"}
+
+textbooks:
+  - "Marie-Noëlle Cocton 等, 《L’atelier A1,A2》, Didier, 2018."
+  - "Marie-Noëlle Cocton 等, 《La culture française en perspective》, Didier, 2015."
+  - "Laura Monnet, 《Introduction à la musique française》, Éditions Delatour, 最新版."
+  - "Jean-François Dortier, 《Histoire de France》, Éditions Sciences Humaines, 最新版."
+
+grading_criteria:
+  - id: 1
+    excellent: "学生非常流畅和自然地使用法语进行各种交流，完美掌握语法和词汇，能够理解和使用高级语言结构，轻松应对各种语言情境。"
+    good: "学生流利使用法语进行各种日常交流，对基础语法和词汇有深刻理解，能够较准确和自然地理解及生成复杂的法语文本。"
+    average: "学生能够使用法语进行常见的日常交流，理解并正确使用大部分基础语法和词汇，犯错相对较少，语言表达较为自然。"
+    fail: "学生无法使用法语进行基础的交流，错误频繁，无法理解简单的法语指示和常用词汇，对基本语法和词汇的掌握明显不足。"
+  - id: 2
+    excellent: "学生展现出卓越的理解力和分析能力，能够综合多种资源和视角，深入解析文化背景和影响，提供洞察力强且批判性的分析。"
+    good: "学生能深入分析法国及其他法语国家的文化背景，展现出对文化细节的理解，能够联系现代社会解释历史和文化现象。"
+    average: "学生对法国及其他法语国家的文化有较好的理解，能够讨论其历史、艺术、文学和社会习俗，并提供具体例子。"
+    fail: "学生几乎没有了解或存在严重误解，不能正确描述法国及其他法语国家的基本历史和文化。"
+  - id: 3
+    excellent: "学生在跨文化交流中表现卓越，能够灵活适应不同文化背景的沟通需求，有效地利用多元文化视角来增强交流，表现出高度的文化敏感性和尊重。"
+    good: "学生在跨文化交流中表现出较高的适应性和敏感性，能够流畅地进行沟通，有效地解决文化冲突。"
+    average: "学生能够在不同文化间进行有效沟通，展现出对文化差异的基本理解和尊重，但在复杂情况下仍有改进空间。"
+    fail: "学生在跨文化交流中表现出显著困难，常出现误解，缺乏基本的沟通技巧和文化敏感性。"
+  - id: 4
+    excellent: "学生表现出卓越的批判思维和分析能力，能够独立思考并从复杂的文化和社会现象中提炼出核心问题，提供富洞察力的分析和解决方案。"
+    good: "学生能深入分析和批判法语国家的文化和社会问题，表达清晰、逻辑性强，能从多角度提供深刻见解。"
+    average: "学生表现出较好的批判性思考和分析能力，能对法语国家的文化和社会问题进行系统的分析，提供合理的见解。"
+    fail: "学生几乎无法展示批判性思考，对文化和社会问题的理解显浅薄，分析力缺乏。"
+  - id: 5
+    excellent: "学生极具学习激情和动力，不仅深入学习课程内容，还自发扩展相关知识，展现出明显的终身学习的能力和意愿。"
+    good: "学生对法语和法国文化表现出显著的兴趣，积极参与课程和额外的学习活动，持续展示出自我驱动的学习态度。"
+    average: "学生对学习法语和文化有一定的兴趣，能够参与更多的学习活动，表现出一些自主学习的行为。"
+    fail: "学生对学习法语和法国文化表现出极低的兴趣和动力，参与度低，缺乏自主学习的意愿。"
+
+evaluation_rubric: []
