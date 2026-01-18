@@ -34,9 +34,17 @@ VERSIONS = {
 # --- 2. 数据加载函数 (带缓存) ---
 @st.cache_data
 def load_data(file_name, timestamp):
+    # 优先尝试默认路径 (可能是软链接)
     file_path = os.path.join(DATA_DIR, file_name)
+    
+    # 备用路径逻辑：如果默认路径不存在或不可读，尝试直接去 submodule 找
     if not os.path.exists(file_path):
-        return None
+        # 假设 csv 文件都在 matrices 目录下
+        alt_path = os.path.join(BASE_DIR, "..", "central_data", "matrices", file_name)
+        if os.path.exists(alt_path):
+            file_path = alt_path
+        else:
+            return None
     
     try:
         # 读取CSV，自动处理 utf-8-sig (BOM) 和空行
@@ -67,9 +75,16 @@ def get_indicator_cols(dataframe):
 def load_program_data(yaml_file):
     """解析YAML文件，返回完整配置数据"""
     file_path = os.path.join(DATA_DIR, yaml_file)
-    if not os.path.exists(file_path):
-        return {}
     
+    # 备用路径逻辑
+    if not os.path.exists(file_path):
+        # 假设 yaml 文件都在 programs 目录下
+        alt_path = os.path.join(BASE_DIR, "..", "central_data", "programs", yaml_file)
+        if os.path.exists(alt_path):
+            file_path = alt_path
+        else:
+            return {}
+
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
             data = yaml.safe_load(f)
