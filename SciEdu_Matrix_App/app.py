@@ -26,34 +26,6 @@ st.markdown(hide_st_style, unsafe_allow_html=True)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, "data")
 
-# --- DEBUG INFO START (临时调试) ---
-try:
-    parent_dir = os.path.dirname(BASE_DIR) # get_ur_matrix root
-    central_dir = os.path.join(parent_dir, "central_data")
-    
-    debug_msg = f"""
-    **🔍 Debugging Path Info:**
-    - Base Dir: `{BASE_DIR}`
-    - Parent Dir: `{parent_dir}`
-    - Central Dir Expected: `{central_dir}`
-    
-    **📂 Directory Listing (Parent):**
-    `{os.listdir(parent_dir)}`
-    """
-    
-    if os.path.exists(central_dir):
-        debug_msg += f"\n**📂 Directory Listing (Central Data):**\n`{os.listdir(central_dir)}`"
-        matrices_dir = os.path.join(central_dir, "matrices")
-        if os.path.exists(matrices_dir):
-             debug_msg += f"\n**📂 Directory Listing (Matrices):**\n`{os.listdir(matrices_dir)}`"
-    else:
-        debug_msg += "\n❌ **Central Data directory NOT FOUND!**"
-        
-    st.info(debug_msg)
-except Exception as e:
-    st.error(f"Debug Error: {e}")
-# --- DEBUG INFO END ---
-
 VERSIONS = {
     "2023版": {"csv": "matrix_2023.csv", "yaml": "2023_program.yaml"},
     "2019版": {"csv": "matrix_2019.csv", "yaml": "2019_program.yaml"}
