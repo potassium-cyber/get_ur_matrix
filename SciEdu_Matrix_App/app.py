@@ -4,6 +4,9 @@ import os
 import yaml
 import plotly.express as px
 import plotly.graph_objects as go
+import requests
+import json
+from openpyxl.styles import Font, Alignment
 
 # --- 1. 页面基础配置 ---
 st.set_page_config(
@@ -12,6 +15,17 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
+# --- 维护通知 (仅在云端生效) ---
+# 检查当前运行路径，如果在 /Users/CHE/ 目录下，则认为是本地开发环境，不触发停止
+import os
+current_path = os.path.abspath(__file__)
+is_local = "/Users/CHE/" in current_path
+
+if not is_local:
+    st.warning("🚧 系统正在进行数据更新与逻辑维护，暂时关闭查询服务。由此带来的不便，敬请谅解。")
+    st.info("预计恢复时间：待定。如需紧急查询，请联系管理员。")
+    st.stop()
 
 # 隐藏底部页脚、顶部装饰条
 hide_st_style = """
@@ -627,9 +641,9 @@ elif mode == "🧮 达成度计算 (测试版)":
         with c1:
             st.markdown("**权重分配 (影响综合达成度)**")
             w_col1, w_col2, w_col3 = st.columns(3)
-            w_h = w_col1.number_input("H (强) 权重", min_value=0.1, value=1.0, step=0.1, format="%.1f")
-            w_m = w_col2.number_input("M (中) 权重", min_value=0.1, value=0.8, step=0.1, format="%.1f")
-            w_l = w_col3.number_input("L (弱) 权重", min_value=0.1, value=0.6, step=0.1, format="%.1f")
+            w_h = w_col1.number_input("H (强) 权重", min_value=0.1, value=1.0, step=0.05, format="%.2f")
+            w_m = w_col2.number_input("M (中) 权重", min_value=0.1, value=0.8, step=0.05, format="%.2f")
+            w_l = w_col3.number_input("L (弱) 权重", min_value=0.05, value=0.6, step=0.05, format="%.2f")
         with c2:
             st.markdown("**质量预警红线**")
             threshold = st.slider("达成度达标阈值", 0.0, 1.0, 0.70, 0.05, help="低于此数值的达成度将被红色标记。")
@@ -788,25 +802,171 @@ elif mode == "🧮 达成度计算 (测试版)":
                     )
                     st.plotly_chart(fig_hm, use_container_width=True)
 
-                # --- 专业导出 ---
+                # --- 智能分析与导出 ---
                 st.divider()
-                st.subheader("📥 导出分析报告")
+                st.subheader("🤖 智能分析与导出")
+
+                # 1. 准备统计数据
+                h_count = len(calc_df[calc_df['支撑强度']=='H'])
+                m_count = len(calc_df[calc_df['支撑强度']=='M'])
+                l_count = len(calc_df[calc_df['支撑强度']=='L'])
                 
+                # 找出短板 (综合达成度最低的3个)
+                weak_points = final_df.sort_values('综合达成度').head(3)
+                weak_str = ", ".join([f"{r['大指标']}({r['综合达成度']:.3f})" for _, r in weak_points.iterrows()])
+                
+                # 找出强项
+                strong_points = final_df.sort_values('综合达成度', ascending=False).head(3)
+                strong_str = ", ".join([f"{r['大指标']}({r['综合达成度']:.3f})" for _, r in strong_points.iterrows()])
+
+                stats_info = {
+                    "评估版本": selected_version,
+                    "计算时间": pd.Timestamp.now().strftime('%Y-%m-%d %H:%M'),
+                    "课程总数": num_courses,
+                    "指标点总数": num_records,
+                    "H支撑数": f"{h_count} (权重 {w_h:.2f})",
+                    "M支撑数": f"{m_count} (权重 {w_m:.2f})",
+                    "L支撑数": f"{l_count} (权重 {w_l:.2f})",
+                    "达标阈值": threshold,
+                    "待改进指标": weak_str,
+                    "优势指标": strong_str
+                }
+
+                # 2. AI 配置 (仅当本地配置了 Secrets 或用户手动输入时可用)
+                # 尝试从 secrets 读取 Key
+                try:
+                    _secret_key = st.secrets["general"]["MOONSHOT_API_KEY"]
+                    is_local_mode = True
+                except:
+                    _secret_key = ""
+                    is_local_mode = False
+
+                # 只有在本地模式下，才默认勾选启用 AI
+                use_ai = st.checkbox("启用 AI 生成分析报告 (基于 Moonshot/Kimi)", value=is_local_mode)
+                ai_report_text = "（用户未启用 AI 分析或生成失败）"
+                
+                if use_ai:
+                    # 安全优化：默认不显示 Key，支持后台配置
+                    # 如果本地有 Key，提示“已加载本地配置”，否则提示“需输入”
+                    placeholder = "✅ 已加载本地 .streamlit/secrets.toml 配置" if _secret_key else "请输入 API Key"
+                    
+                    api_key_input = st.text_input(
+                        "Moonshot API Key", 
+                        value="", 
+                        type="password", 
+                        placeholder=placeholder,
+                        help="本地开发模式下会自动读取 secrets.toml。线上部署需手动输入。"
+                    )
+                    model_name = st.selectbox("选择模型", ["kimi-k2-turbo-preview", "moonshot-v1-8k"], index=0)
+                    
+                    if st.button("🚀 生成 AI 分析报告"):
+                        # 优先使用用户输入的 Key，其次使用 Secrets 中的 Key
+                        api_key = api_key_input if api_key_input.strip() else _secret_key
+                        
+                        if not api_key:
+                            st.error("未配置 API Key。请在输入框中填写，或在本地配置 secrets.toml。")
+                        else:
+                            with st.spinner("AI 正在阅读数据并撰写报告..."):
+                                try:
+                                    # 构建 Prompt
+                                    prompt = f"""
+                                    你是一位工程教育认证专家。请根据以下《毕业要求达成度分析数据》写一份简短、专业的分析报告（300字左右）。
+                                    
+                                    【数据概览】
+                                    - 评估版本：{stats_info['评估版本']}
+                                    - 数据规模：处理了 {stats_info['课程总数']} 门课程，共 {stats_info['指标点总数']} 个支撑点。
+                                    - 支撑分布：强支撑(H) {stats_info['H支撑数']} 个，中支撑(M) {stats_info['M支撑数']} 个，弱支撑(L) {stats_info['L支撑数']} 个。
+                                    - 达标红线：{stats_info['达标阈值']}
+                                    
+                                    【关键发现】
+                                    - 综合达成度最低的指标点（短板）：{stats_info['待改进指标']}
+                                    - 综合达成度最高的指标点（优势）：{stats_info['优势指标']}
+                                    
+                                    【写作要求】
+                                    1. 报告必须包含对“数据概览”中所有统计数字的描述。
+                                    2. 重点分析“待改进指标”可能存在的问题。
+                                    3. 给出针对性的教学改进建议。
+                                    4. 语气客观、专业，适合放入正式的教学评估文档中。
+                                    """
+                                    
+                                    url = "https://api.moonshot.cn/v1/chat/completions"
+                                    headers = {
+                                        "Content-Type": "application/json",
+                                        "Authorization": f"Bearer {api_key}"
+                                    }
+                                    data = {
+                                        "model": model_name,
+                                        "messages": [
+                                            {"role": "system", "content": "你是专业的教育评估助手。"},
+                                            {"role": "user", "content": prompt}
+                                        ],
+                                        "temperature": 0.3
+                                    }
+                                    
+                                    response = requests.post(url, headers=headers, json=data)
+                                    if response.status_code == 200:
+                                        res_json = response.json()
+                                        ai_report_text = res_json['choices'][0]['message']['content']
+                                        st.success("✅ AI 报告生成成功！预览如下：")
+                                        st.info(ai_report_text)
+                                        st.session_state['last_ai_report'] = ai_report_text # 缓存
+                                    else:
+                                        st.error(f"API 请求失败: {response.status_code} - {response.text}")
+                                except Exception as e:
+                                    st.error(f"发生错误: {e}")
+
+                # 读取缓存的报告（如果有）
+                if 'last_ai_report' in st.session_state:
+                    ai_report_text = st.session_state['last_ai_report']
+
+                # 3. 导出 Excel (单 Sheet)
                 output_report = io.BytesIO()
                 with pd.ExcelWriter(output_report, engine='openpyxl') as writer:
-                    # 分页1: 达成度结果
-                    final_df.to_excel(writer, index=False, sheet_name='达成度汇总')
-                    # 分页2: 计算参数存证 (Metadata)
-                    metadata = pd.DataFrame({
-                        "参数项": ["评估版本", "计算时间", "处理课程数", "支撑记录数", "达标阈值", "H权重", "M权重", "L权重"],
-                        "取值": [selected_version, pd.Timestamp.now().strftime('%Y-%m-%d %H:%M'), num_courses, num_records, threshold, w_h, w_m, w_l]
-                    })
-                    metadata.to_excel(writer, index=False, sheet_name='计算参数存证')
-                
+                    # 我们先不写 DataFrame，而是先获取 workbook 对象手动写
+                    # 但为了利用 to_excel 的便利性，我们先把 df 写到第 20 行之后
+                    final_df.to_excel(writer, index=False, sheet_name='达成度分析报告', startrow=18)
+                    
+                    # 获取 sheet 对象进行头部写入
+                    ws = writer.sheets['达成度分析报告']
+                    
+                    # --- A. 写入标题 ---
+                    ws['A1'] = "毕业要求达成度分析报告"
+                    ws['A1'].font = Font(size=18, bold=True)
+                    
+                    # --- B. 写入 AI 报告 ---
+                    ws['A2'] = "一、智能评估概览"
+                    ws['A2'].font = Font(bold=True, color="2F75B5")
+                    
+                    ws.merge_cells('A3:H10') # 合并一片区域放文本
+                    cell_report = ws['A3']
+                    cell_report.value = ai_report_text
+                    cell_report.alignment = Alignment(wrap_text=True, vertical='top')
+                    
+                    # --- C. 写入统计信息 ---
+                    ws['A12'] = "二、基础统计数据"
+                    ws['A12'].font = Font(bold=True, color="2F75B5")
+                    
+                    # 将 stats_info 转为 DataFrame 写入
+                    stats_df = pd.DataFrame(list(stats_info.items()), columns=['统计项', '数值'])
+                    # 转置一下为了横向排布，或者直接竖向写
+                    # 这里选择简单的 Key-Value 两列写入
+                    rows = list(stats_info.items())
+                    for i, (k, v) in enumerate(rows):
+                        # 分两列展示，节省空间
+                        r_idx = 13 + (i // 2)
+                        c_idx = 1 + (i % 2) * 3 # A列(1) 和 D列(4)
+                        ws.cell(row=r_idx, column=c_idx).value = k
+                        ws.cell(row=r_idx, column=c_idx).font = Font(bold=True)
+                        ws.cell(row=r_idx, column=c_idx+1).value = v
+                    
+                    # --- D. 数据表头 ---
+                    ws['A17'] = "三、达成度详细数据"
+                    ws['A17'].font = Font(bold=True, color="2F75B5")
+
                 st.download_button(
-                    label="📥 下载专业分析报告 (Excel)",
+                    label="📥 下载完整分析报告 (Excel)",
                     data=output_report.getvalue(),
-                    file_name=f"Analysis_Report_{selected_version}_{pd.Timestamp.now().strftime('%m%d')}.xlsx",
+                    file_name=f"AI_Analysis_Report_{selected_version}.xlsx",
                     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                     use_container_width=True
                 )
