@@ -23,9 +23,6 @@ course_attribute:
 
 config:
   standard_version: "2023"
-  mapping_table_extra_style: "row{2} = {ht=4.5cm},"
-  templates:
-    rubric: "components/evaluation_rubric_complex.tex.j2"
 
 course_introduction: |
   《自然科学概论》是科学教育专业开设的一门文理通识专业任选修课程，理论性、知识性都很强，是科学教育专业的基础课之一。这门课的主要目的是通过教学，使学生逐步树立科学的世界观和方法论，拓宽知识视野，掌握科学技术的发展动态与规律，并且具有宽厚的自然科学知识基础，为从事义务教育阶段的科学课程教育工作打下自然科学知识基础。
@@ -66,18 +63,6 @@ course_objectives:
       【伦理与价值内化】结合科学史与前沿技术案例（如CRISPR、双碳），能够敏锐识别科技应用中的伦理冲突；
       在分析具体问题时，能自觉融入生态文明、社会责任及人类命运共同体意识，形成稳定的科技伦理价值观。
 
-analysis_and_improvement:
-  summary_intro: >-
-    课程教学紧扣“大科学”视野与“复杂性”思维，学生对核心科学原理掌握扎实，
-    但在运用跨学科视角分析现实复杂问题（如双碳、生命伦理）时，部分学生仍显吃力，
-    深度批判性思维的训练有待进一步加强。
-  improvement_plan:
-    - title: "强化微专题研讨"
-      content: "增加课堂辩论与小组对抗环节的权重，迫使学生跳出舒适区，从多维视角审视科学争议。"
-    - title: "丰富过程性评价"
-      content: "引入基于AI的辅助评价工具，对学生的课堂发言逻辑进行即时反馈，提升过程评价的精准度。"
-    - title: "拓展实践维度"
-      content: "依托校园科技馆或周边科普基地，增设'科学实地考察'环节，增强理论知识的具身认知。"
 
 mapping_matrix:
   - co_id: 1

@@ -1,0 +1,209 @@
+# ==========================================
+# SciEdu Docs - 课程数据 (Course Data)
+# ==========================================
+
+course_info:
+  code: "11191004"
+  name: "程序设计与应用"
+  name_en: "Programming Design and Application"
+  credits: 3.0
+  hours: 48
+  practical_hours: 48
+  term: 4
+  prerequisites: "创新创造能力训练II"
+  department: "物理科学与技术学院"
+  major: "科学教育（2023-2026级）"
+  author: "车潇洋"
+  responsible: "车潇洋"
+  reviewer: "周小燕"
+  date: "2026年1月"
+
+course_attribute:
+  type: "专业基础课程"
+  hours_distribution:
+    total: 48
+    theory: 0
+    practice: 48
+
+config:
+  standard_version: "2023"
+
+course_introduction: |
+  《程序设计与应用》是一门面向科学教育专业的“魔法”实验课。本课程摒弃传统的语法驱动模式，采用“项目驱动（Project-Driven）”的三段式教学法。
+  课程将带领学生经历三个角色的蜕变：从**“赛博炼金术士”**（逻辑与配置），进化为**“科学数据侦探”**（数据清洗与可视化），最终成为**“数字造物主”**（系统模拟与建模）。
+  通过“元素人格测试仪”、“植物生长分析”、“数字生态瓶”三个核心项目，学生将掌握 Python 编程、Docs-as-Code 数据管理、Streamlit 交互开发以及 AI 辅助工程能力，最终具备开发数字化科学教学资源的能力。
+
+course_objectives:
+  - id: 1
+    delivery: "项目一：MiniFlow 开发"
+    evaluation: "代码审查、配置修改作业"
+    description: >-
+      【逻辑构建与配置思维】通过开发“人格测试仪”，消除对代码的恐惧。
+      掌握“配置即代码”理念（YAML），理解变量、容器（List/Dict）与基础逻辑（循环/判断），建立“输入-处理-输出”的计算思维。
+  - id: 2
+    delivery: "项目二：Data Detective 实战"
+    evaluation: "数据分析报告、清洗脚本"
+    description: >-
+      【数据素养与实证推理】通过处理真实的“脏数据”，掌握 Pandas 数据清洗技术；
+      理解“整洁数据”（Tidy Data）原则，能够利用可视化工具（Charts）从混乱的数据中提取科学证据，培养严谨的实证精神。
+  - id: 3
+    delivery: "项目三：Digital Terrarium 模拟"
+    evaluation: "期末综合作品（Web App）、路演"
+    description: >-
+      【系统建模与工程能力】通过构建动态的“生态模拟器”，理解科学模型的离散化表达；
+      掌握状态管理（Session State）等高阶交互技术，并能熟练利用 AI 辅助（Co-pilot）完成复杂系统的开发与调试。
+
+mapping_matrix:
+  - co_id: 1
+    requirements:
+      - {req_id: "3-1", level: "H"} # 基础素养：计算思维基础
+      - {req_id: "1-1", level: "L"} # 理想信念：严谨治学
+  - co_id: 2
+    requirements:
+      - {req_id: "3-2", level: "H"} # 学科思维：数据实证
+      - {req_id: "4-3", level: "M"} # 教学研究：数据处理能力
+  - co_id: 3
+    requirements:
+      - {req_id: "3-3", level: "H"} # 学科关联：跨学科建模
+      - {req_id: "4-2", level: "H"} # 教学技能：数字化资源开发
+      - {req_id: "8-1", level: "M"} # 沟通合作：人机协作
+
+chapters:
+  - chapter_number: 1
+    title: "Phase 1: 赛博炼金术士 (The Alchemist)"
+    objectives_supported: "1"
+    content: |
+      【核心项目：元素人格测试仪】
+      §1 实验室搭建：CLI 基础，环境配置，运行第一个 Streamlit App。
+      §2 配方的秘密：YAML 数据结构，List 与 Dict 的嵌套艺术。
+      §3 炼成阵逻辑：For 循环遍历，最近邻算法（向量距离）的实现。
+      §4 交互控制台：Slider, Button 组件与 f-string 动态反馈。
+    requirements: "独立完成“人格测试仪”的逻辑修改与数据扩展，理解程序如何通过数据驱动逻辑。"
+
+  - chapter_number: 2
+    title: "Phase 2: 科学数据侦探 (The Detective)"
+    objectives_supported: "2"
+    content: |
+      【核心项目：植物生长数据清洗】
+      §1 案发现场：读取 CSV，认识 DataFrame，发现“脏数据”（缺失值、格式错误）。
+      §2 清洗工具：Pandas 核心指令 (dropna, fillna, apply)，数据类型转换。
+      §3 抽丝剥茧：Groupby 分组统计，Tidy Data 原则，重构数据表。
+      §4 证据可视化：使用 st.line_chart 和 st.bar_chart 绘制科学图表，揭示数据背后的规律。
+    requirements: "能够将一份原始的、混乱的实验记录清洗为标准格式，并生成可视化的分析报告。"
+
+  - chapter_number: 3
+    title: "Phase 3: 数字造物主 (The Creator)"
+    objectives_supported: "3"
+    content: |
+      【核心项目：数字生态瓶】
+      §1 上帝的剧本：科学模型的离散化（如 Lotka-Volterra 捕食者模型），将公式转化为代码。
+      §2 时间的魔法：理解 Session State，让网页“记住”状态，实现连续的动态模拟。
+      §3 系统的迭代：参数调优，增加干扰因子（如“投放食物”、“自然灾害”按钮）。
+      §4 AI 结对编程：利用 AI 辅助生成复杂的模拟算法，进行 Debug 和性能优化。
+    requirements: "开发一个具有动态模拟功能的 Web App，能够实时演示科学现象的演变过程。"
+
+schedule:
+  # Phase 1: MiniFlow (16 hours)
+  - {seq: 1, name: "P1-1: 破冰与环境 - 唤醒你的第一个 App", total: 2, theory: 0, practice: 2}
+  - {seq: 2, name: "P1-2: 数据即配方 - YAML 与 Python 字典", total: 2, theory: 0, practice: 2}
+  - {seq: 3, name: "P1-3: 交互初探 - Streamlit 基础组件", total: 2, theory: 0, practice: 2}
+  - {seq: 4, name: "P1-4: 逻辑觉醒 - 变量、计算与 f-string", total: 2, theory: 0, practice: 2}
+  - {seq: 5, name: "P1-5: 算法核心 - 向量空间与距离计算", total: 2, theory: 0, practice: 2}
+  - {seq: 6, name: "P1-6: 循环试炼 - 遍历与决策逻辑", total: 2, theory: 0, practice: 2}
+  - {seq: 7, name: "P1-7: AI 赋能 - Prompt Engineering 入门", total: 2, theory: 0, practice: 2}
+  - {seq: 8, name: "P1-8: 第一阶段成果展示与重构", total: 2, theory: 0, practice: 2}
+
+  # Phase 2: Data Detective (14 hours)
+  - {seq: 9, name: "P2-1: 遇见脏数据 - Pandas DataFrame 入门", total: 2, theory: 0, practice: 2}
+  - {seq: 10, name: "P2-2: 数据清洗术 - 缺失值与异常处理", total: 2, theory: 0, practice: 2}
+  - {seq: 11, name: "P2-3: 数据整洁化 - Tidy Data 实战", total: 2, theory: 0, practice: 2}
+  - {seq: 12, name: "P2-4: 统计与洞察 - Groupby 与聚合分析", total: 2, theory: 0, practice: 2}
+  - {seq: 13, name: "P2-5: 可视化基础 - 让数据说话 (Charts)", total: 2, theory: 0, practice: 2}
+  - {seq: 14, name: "P2-6: 综合案例 - 从 CSV 到分析看板", total: 2, theory: 0, practice: 2}
+  - {seq: 15, name: "P2-7: 第二阶段代码审查 (Code Review)", total: 2, theory: 0, practice: 2}
+
+  # Phase 3: Digital Terrarium (18 hours)
+  - {seq: 16, name: "P3-1: 动态模拟序章 - 什么是 Session State", total: 2, theory: 0, practice: 2}
+  - {seq: 17, name: "P3-2: 科学建模 - 将数学公式转化为函数", total: 2, theory: 0, practice: 2}
+  - {seq: 18, name: "P3-3: 生态瓶搭建 - 迭代循环与状态更新", total: 2, theory: 0, practice: 2}
+  - {seq: 19, name: "P3-4: 上帝之手 - 添加交互控制 (参数干扰)", total: 2, theory: 0, practice: 2}
+  - {seq: 20, name: "P3-5: 视觉反馈 - 动态图表与动画效果", total: 2, theory: 0, practice: 2}
+  - {seq: 21, name: "P3-6: 终极挑战 I - 选题与 AI 辅助设计", total: 2, theory: 0, practice: 2}
+  - {seq: 22, name: "P3-7: 终极挑战 II - 核心功能冲刺 (Sprint)", total: 2, theory: 0, practice: 2}
+  - {seq: 23, name: "P3-8: 终极挑战 III - 界面美化与部署", total: 2, theory: 0, practice: 2}
+  - {seq: 24, name: "P3-9: 期末产品发布会 (Demo Day)", total: 2, theory: 0, practice: 2}
+
+teaching_methods:
+  - title: "项目驱动教学 (PBL)"
+    content: "全课程围绕三个核心项目展开，所有知识点均为解决项目中的具体问题而引入，拒绝枯燥的语法灌输。"
+  - title: "逆向工程法"
+    content: "每个阶段先展示最终成品（MVP），引导学生通过拆解、修改、破坏、修复的过程来理解代码逻辑。"
+  - title: "AI 结对编程"
+    content: "全程引入 AI 助手。低阶阶段用于解释代码和报错，高阶阶段用于生成复杂算法和优化结构，培养人机协作能力。"
+
+assessment:
+  intro: "采用过程性评价与终结性评价相结合。不考死记硬背，只看代码产出与解决问题的能力。"
+  methods:
+    - {target: "课程目标 1", attendance: "20", activity: "40", homework: "40", final: "0"} # 阶段一权重
+    - {target: "课程目标 2", attendance: "20", activity: "40", homework: "40", final: "0"} # 阶段二权重
+    - {target: "课程目标 3", attendance: "0", activity: "20", homework: "20", final: "60"} # 阶段三权重 (含期末大作业)
+
+textbooks:
+  - "《父与子的编程之旅：与小卡特一起学Python》 (Python 基础)"
+  - "Wes McKinney, 《利用Python进行数据分析》 (数据处理)"
+  - "Streamlit 官方文档 & AI Prompt Guide (工程实战)"
+
+grading_criteria:
+  - id: 1
+    excellent: "能独立搭建开发环境，熟练修改 YAML 配置；深刻理解 List/Dict 结构，能编写清晰的循环与判断逻辑，独立完成 MiniFlow 的扩展。"
+    good: "能完成环境配置，理解基础语法；能模仿示例代码完成数据结构的修改和简单逻辑的编写。"
+    average: "依赖文档完成基础配置，能修改文本内容；对循环和字典结构理解尚浅，代码修改容易出错。"
+    fail: "无法运行程序，不理解配置与代码的关系。"
+  - id: 2
+    excellent: "深刻理解 Tidy Data 原则，能独立编写 Pandas 脚本清洗复杂脏数据；能根据数据特征选择最合适的图表形式，分析报告逻辑严密。"
+    good: "掌握基础清洗指令，能处理常见的缺失值和格式问题；能生成基础图表，并进行简单的数据解读。"
+    average: "能运行示例清洗脚本，但难以处理未见过的数据错误；图表生成依赖模板，缺乏针对性调整。"
+    fail: "无法完成数据清洗，图表逻辑混乱或无法生成。"
+  - id: 3
+    excellent: "熟练掌握 Session State 状态管理，能将复杂的科学公式转化为迭代代码；Prompt 编写精准，能高效指挥 AI 协同开发；作品具有高度的创新性和实用价值。"
+    good: "理解状态管理基本概念，能实现简单的动态模拟；能利用 AI 解决大部分编程报错；作品功能完整，逻辑跑通。"
+    average: "对动态模拟逻辑理解困难，代码严重依赖 AI 生成且无法独立调试；作品勉强运行，交互体验较差。"
+    fail: "未能完成最终项目，或作品无法运行。"
+
+evaluation_rubric: 
+  - element: "出勤情况 (20分)"
+    dimension: "学习态度"
+    metric: "20"
+    excellent: "无旷课、迟到、早退等现象。"
+    good: "无旷课，有迟到、早退或者请假现象。"
+    average: "有偶尔旷课，迟到、早退、或者请假现象。"
+    fail: "经常旷课，迟到、早退、或者请假。"
+  - element: "课堂活动 (40分)"
+    dimension: "听课与互动 (20%)"
+    metric: "8"
+    excellent: "课堂表现良好，认真听讲，积极互动，主动回答问题、注意力集中。"
+    good: "课堂表现较好，能够参与互动和回答问题、没有溜号等行为。"
+    average: "课堂表现一般，很少参与互动和回答问题、精神不够集中。"
+    fail: "课堂表现一般，不参与互动，偶尔睡觉或玩手机。"
+  - element: "课堂活动 (40分)"
+    dimension: "即时练习 (40%)"
+    metric: "16"
+    excellent: "能迅速完成课堂随堂小练习，代码运行正确且整洁。"
+    good: "能在规定时间内完成练习，逻辑基本正确。"
+    average: "在指导下能完成大部分练习，进度略慢。"
+    fail: "无法完成课堂练习，逻辑混乱。"
+  - element: "课堂活动 (40分)"
+    dimension: "小组协作 (40%)"
+    metric: "16"
+    excellent: "在团队中积极贡献创意，分工明确，有效推动项目进展。"
+    good: "能配合团队成员完成分配的任务，有较好的沟通意识。"
+    average: "基本能参与小组讨论，但贡献度有限。"
+    fail: "完全脱离团队，不参与项目讨论与开发。"
+  - element: "阶段作业 (40分)"
+    dimension: "专业能力"
+    metric: "40"
+    excellent: "按时提交作业，代码规范，能举一反三实现拓展功能。"
+    good: "认真完成作业，功能实现完整，书写规范。"
+    average: "能够完成作业，但步骤简略，代码存在小瑕疵。"
+    fail: "作业缺失严重，或存在明显的抄袭现象。"
+

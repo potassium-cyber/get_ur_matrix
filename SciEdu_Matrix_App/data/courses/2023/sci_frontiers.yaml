@@ -1,0 +1,171 @@
+# ==========================================
+# SciEdu Docs - 课程数据文件
+# 课程名称: 科学前沿专题讲座
+# ==========================================
+
+course_info:
+  code: "11193088"
+  name: "科学前沿专题讲座"
+  name_en: "Special Lectures on Frontiers of Science"
+  credits: 1.0
+  hours: 16
+  practical_hours: 0
+  term: 6 # 第六学期（大三下）
+  prerequisites: "无"
+  department: "物理科学与技术学院"
+  major: "科学教育"
+  author: "车潇洋"
+  responsible: "车潇洋"
+  reviewer: "周小燕"
+  date: "2025年12月"
+
+course_attribute:
+  type: "非实践课程"
+  hours_distribution:
+    total: 16
+    theory: 16
+    practice: 0
+
+config:
+  standard_version: "2023"
+
+course_introduction: |
+  本课程是面向科学教育专业高年级学生开设的一门专业拓展课程。课程通过邀请物理、化学、生物、材料、地球科学及人工智能等领域的专家，以专题讲座的形式介绍当代自然科学的最前沿动态、重大科学发现及其背后的科学思维方法。
+  
+  课程旨在打破学科壁垒，通过跨学科的视角更新学生的科学知识体系，培养其对科学前沿的敏感度，引导学生感悟科学家精神。同时，课程强调前沿知识与小学科学教育的关联，探讨如何将尖端科学成果转化为科普素材，为学生未来从事高质量科学教育工作奠定坚实的知识基础。
+
+overall_goals:
+  - id: "知识目标"
+    description: >-
+      了解引力波、新能源材料、基因编辑、AI4S等领域的最新研究进展；掌握前沿科学发现的核心原理及其对人类文明的影响。
+  - id: "能力目标"
+    description: >-
+      能够通过文献检索与讲座学习，提取前沿科学知识的关键信息；具备将复杂科学前沿问题进行科普化解读与二次创作的能力。
+  - id: "素质目标"
+    description: >-
+      感悟追求真理、严谨治学的科学家精神；增强关注科技动态、终身学习的意识，提升对国家科技强国战略的认同感。
+
+course_objectives:
+  - id: 1
+    delivery: "专题讲座、课堂研讨"
+    evaluation: "听课笔记、期末综述"
+    description: >-
+      学生能够陈述并解释至少三个不同科学领域的最新研究前沿，理解其基本科学逻辑与未来发展趋势。
+  - id: 2
+    delivery: "案例分析、科学家精神感悟"
+    evaluation: "听课心得、期末综述"
+    description: >-
+      学生能够分析重大科学发现的探究路径，体会科学研究中的创新思维与团队协作，形成正确科学观。
+  - id: 3
+    delivery: "科普转化探讨"
+    evaluation: "科普综述、课堂表现"
+    description: >-
+      学生能够关注国内外科技动态，并尝试将前沿科学知识转化为适合青少年理解的科普内容。
+
+mapping_matrix:
+  - co_id: 1
+    requirements:
+      - {req_id: "3-1", level: "H"} # 基础素养：解释科学现象的能力
+  - co_id: 2
+    requirements:
+      - {req_id: "2-2", level: "M"} # 职业素养：科学精神与科学史
+  - co_id: 3
+    requirements:
+      - {req_id: "7-1", level: "H"} # 终身学习：掌握新技能的意识
+
+chapters:
+  - chapter_number: "一"
+    title: "导论：科学发展的范式与前沿视野"
+    objectives_supported: "1、2"
+    content: |
+      §1 科学发现的逻辑与范式转移
+      §2 当代自然科学的交叉融合特征
+      §3 课程要求与科普综述写作规范
+    requirements: "理解科学发现的总体规律，明确课程考核要求。"
+
+  - chapter_number: "二"
+    title: "物理与材料科学前沿专题"
+    objectives_supported: "1、2"
+    content: |
+      §1 引力波探测与多信使天文学
+      §2 锂电池与新能源材料的迭代革新
+      §3 钙钛矿光伏技术的现状与未来
+    requirements: "掌握相关前沿物理/化学原理，记录专家的核心观点。"
+
+  - chapter_number: "三"
+    title: "生命科学与智能科技前沿专题"
+    objectives_supported: "1、2、3"
+    content: |
+      §1 基因剪刀：CRISPR技术的伦理与应用
+      §2 AI for Science：数据驱动的科研新范式
+      §3 地球系统模型与全球气候治理
+    requirements: "思考新技术对社会的深远影响，探讨其科普转化的可能性。"
+
+  - chapter_number: "四"
+    title: "总结与科普转化研讨"
+    objectives_supported: "3"
+    content: |
+      §1 前沿知识进入小学课堂的路径
+      §2 学生专题分享与交流
+      §3 课程总结
+    requirements: "完成课程总结，提交科普综述论文。"
+
+schedule:
+  - {seq: 1, name: "课程导论与科学范式", total: 2, theory: 2, practice: 0}
+  - {seq: 2, name: "[专题一] 引力波探测与宇宙演化", total: 2, theory: 2, practice: 0}
+  - {seq: 3, name: "[专题二] 锂电池与未来能源体系", total: 2, theory: 2, practice: 0}
+  - {seq: 4, name: "[专题三] 钙钛矿材料与光伏前沿", total: 2, theory: 2, practice: 0}
+  - {seq: 5, name: "[专题四] 基因编辑与生命伦理", total: 2, theory: 2, practice: 0}
+  - {seq: 6, name: "[专题五] AI驱动下的科研新范式", total: 2, theory: 2, practice: 0}
+  - {seq: 7, name: "[专题六] 全球气候变化与地球系统", total: 2, theory: 2, practice: 0}
+  - {seq: 8, name: "科普转化研讨与课程总结", total: 2, theory: 2, practice: 0}
+
+teaching_methods:
+  - title: "专题专家讲座"
+    content: "邀请不同学科背景的老师，围绕特定前沿主题进行深度剖析，结合多媒体展示和案例分析。"
+  - title: "互动研讨式教学"
+    content: "讲座后安排Q&A环节，鼓励学生与专家对话，探讨科学问题的本质与教育转化路径。"
+
+assessment:
+  intro: "本课程采用过程性评价（50%）与期末综述（50%）相结合的方式。过程性评价包括出勤（20%）、听课笔记（40%）、课堂互动（40%）。期末考试为提交一篇关于特定前沿领域的科普综述论文。"
+  methods:
+    - {target: "课程目标 1", attendance: 20, activity: 40, homework: 40, final: 50}
+    - {target: "课程目标 2", attendance: 20, activity: 40, homework: 40, final: 30}
+    - {target: "课程目标 3", attendance: 20, activity: 40, homework: 40, final: 20}
+
+textbooks:
+  - "课程组, 《科学前沿专题文献汇编》, 自编内部资料, 2025."
+  - "李淼, 《给孩子讲量子力学》 (作为科普参考), 中信出版社, 2017."
+
+grading_criteria:
+  - id: 1
+    excellent: "能准确、深入地复述并评价三个以上前沿领域的科学原理，逻辑严密，视野开阔。"
+    good: "能较好地复述讲座涉及的科学领域，理解基本原理，表达清晰。"
+    average: "能基本叙述讲座的主要内容，对核心概念有初步了解。"
+    fail: "无法复述讲座核心内容，科学概念存在严重错误。"
+  - id: 2
+    excellent: "深刻理解科学探究的逻辑与精神，能结合实际案例发表具有洞察力的感悟。"
+    good: "认同科学精神，能正确描述科学探究的过程，感悟较真实。"
+    average: "对科学精神有基本认知，能完成听课心得。"
+    fail: "对科学探究逻辑缺乏理解，心得体会流于形式或抄袭。"
+  - id: 3
+    excellent: "具有极强的科技敏感度，能将复杂的前沿知识巧妙转化为通俗易懂、具有教育价值的科普作品。"
+    good: "关注科技动态，能进行基础的科普尝试，转化内容基本准确。"
+    average: "有一定的关注度，能完成基础的科普综述写作。"
+    fail: "缺乏对科技动态的关注，无法完成科普转化相关任务。"
+
+evaluation_rubric:
+  - element: "听课表现\n（60分）"
+    dimension: "记录完整性 （30%）"
+    metric: "学习态度"
+    excellent: "笔记详尽，不仅记录了结论，还记录了实验方法与逻辑推导。"
+    good: "笔记完整，记录了讲座的核心观点与主要结论。"
+    average: "笔记较为简单，记录了大概框架，缺少细节。"
+    fail: "笔记不完整或存在大面积抄袭。"
+  - element: "课堂互动\n（40分）"
+    dimension: "思维活跃度 （20%）"
+    metric: "科学素养"
+    excellent: "积极提问，能基于前沿背景提出具有挑战性或启发性的问题。"
+    good: "能参与互动，提出的问题符合科学逻辑。"
+    average: "被动参与互动，能回答基础问题。"
+    fail: "不参与互动，不提问，对课堂内容反应冷淡。"

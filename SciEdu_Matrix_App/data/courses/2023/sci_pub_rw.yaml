@@ -1,0 +1,245 @@
+# ==========================================
+# SciEdu Docs - 课程数据 (Course Data)
+# ==========================================
+# 引用标准: 基于 TEMPLATE_COURSE.yaml
+# 对应矩阵: 11191052 (科技文献检索与论文写作)
+# ==========================================
+
+course_info:
+  code: "11191052"
+  name: "科技文献检索与论文写作"
+  name_en: "Scientific Literature Retrieval and Thesis Writing"
+  credits: 1.0
+  hours: 16
+  practical_hours: 8
+  term: 6
+  prerequisites: "无"
+  department: "物理科学与技术学院"
+  major: "科学教育（2023-2026级）"
+  author: "车潇洋"
+  responsible: "车潇洋"
+  reviewer: "周小燕"
+  date: "2026年02月"
+
+course_attribute:
+  type: "专业选修课"
+  hours_distribution:
+    total: 16
+    theory: 8
+    practice: 8
+
+config:
+  standard_version: "2023"
+
+course_introduction: |
+  《科技文献检索与论文写作》是面向科学教育专业高年级学生开设的一门方法论课程，旨在提升学生的学术信息素养与科研表达能力。在信息爆炸与科学研究全球化的背景下，快速获取高质量文献并进行有效阅读与规范写作，是从事科学教育与研究工作的必备技能。
+  本课程总学时为 16 学时，教学周期为 8 周。课程设计紧密围绕“检索-阅读-写作”的科研全流程，特别强调英文文献阅读能力的训练。通过本课程的学习，学生将掌握国内外主流数据库（如 CNKI, Web of Science）的高级检索技巧，学会使用 EndNote 等效率工具管理文献；重点突破英文科技论文的阅读障碍，熟悉 IMRaD 结构，掌握长难句的解析与关键信息提取方法；并了解学术道德规范与论文写作的基本范式。
+  课程将引导学生从单纯的知识接收者转变为主动的信息搜寻者与分析者，为毕业论文撰写及未来的学术发展奠定坚实基础。
+
+overall_goals:
+  - id: "知识目标"
+    description: >-
+      了解科技文献的类型、等级与分布规律；掌握国内外主流学术数据库的检索规则与策略；
+      熟悉科技论文的标准结构（Title, Abstract, Introduction, Methods, Results, Discussion）；
+      理解学术引用的规范与学术不端行为的界定。
+  - id: "能力目标"
+    description: >-
+      能够制定高效的检索策略，精准获取所需的中英文文献；
+      具备快速阅读与深度精读英文科技论文的能力，能准确抓取核心观点与实验逻辑；
+      能够熟练运用文献管理软件进行整理与引用，具备撰写规范文献综述或小论文的初步能力。
+  - id: "素质目标"
+    description: >-
+      培养严谨求实的科学态度与学术道德意识，杜绝抄袭与剽窃；
+      增强国际化学术视野，消除对英文文献的畏难情绪，提升跨语言的科学交流自信；
+      树立终身学习的理念，掌握知识更新的方法。
+
+course_objectives:
+  - id: 1
+    delivery: "数据库演示、AI工具实操"
+    evaluation: "检索报告、课堂测试"
+    description: >-
+      【信息素养与AI工具应用】
+      熟练掌握 CNKI、Web of Science 等传统数据库的高级检索功能；
+      能够运用新一代 AI 科研助手（如 Elicit, Consensus）进行语义检索与文献初筛；
+      熟练使用文献管理软件进行文献的导入、分组与参考文献格式化。
+  - id: 2
+    delivery: "文献导读、人机协作阅读"
+    evaluation: "文献阅读笔记、英文摘要翻译"
+    description: >-
+      【英文阅读与逻辑分析】
+      克服语言障碍，掌握科技英语（ESP）的词汇特点与句法结构；
+      学会利用 AI 工具（如 ChatPDF, SciSpace）辅助快速定位核心信息与长难句解析；
+      具备批判性阅读能力，能评估 AI 总结的准确性与文献的学术价值。
+  - id: 3
+    delivery: "写作工作坊、学术伦理讲座"
+    evaluation: "综述习作、模拟投稿"
+    description: >-
+      【学术规范与沟通表达】
+      理解 AI 在写作中的伦理边界，严格遵守“辅助而非替代”的原则；
+      掌握科技论文的写作范式，能够利用 AI 润色工具优化英文表达；
+      具备基本的学术交流能力，能以书面或口头形式汇报文献调研成果。
+
+mapping_matrix:
+  # 根据 matrix_2023.csv 对应关系填入
+  # 11191052: L,L,,,L,,L,L,,,,H,,,,,L,,H,H,M,M,M,
+  - co_id: 1
+    requirements:
+      - {req_id: "4-2", level: "H"} # 教学技能/工具应用
+      - {req_id: "7-1", level: "H"} # 终身学习/检索能力
+      - {req_id: "7-2", level: "H"} # 规划意识/前沿关注
+  - co_id: 2
+    requirements:
+      - {req_id: "3-1", level: "L"} # 基础素养
+      - {req_id: "3-2", level: "L"} # 学科思维
+      - {req_id: "2-1", level: "L"} # 职业认同 (Matrix中对应的L)
+  - co_id: 3
+    requirements:
+      - {req_id: "1-1", level: "L"} # 理想信念
+      - {req_id: "1-2", level: "L"} # 立德树人
+      - {req_id: "6-2", level: "L"} # 育人实践
+      - {req_id: "8-1", level: "M"} # 合作意识
+      - {req_id: "8-2", level: "M"} # 团队协作
+      - {req_id: "8-3", level: "M"} # 沟通交流 (Matrix第25列推测)
+
+chapters:
+  - chapter_number: "一"
+    title: "绪论与学术道德"
+    objectives_supported: "3"
+    content: |
+      §1 科技论文的定义、分类与发表流程
+      §2 学术道德与学术不端：抄袭、造假与一稿多投的界定
+      §3 AI 时代的学术伦理：生成式内容的使用规范与引用标准
+    requirements: "了解科技论文的生命周期，树立严格的学术诚信意识。"
+
+  - chapter_number: "二"
+    title: "信息源与中文文献检索"
+    objectives_supported: "1"
+    content: |
+      §1 检索策略构建：关键词选择与布尔逻辑
+      §2 CNKI（知网）的高级检索与可视化分析
+      §3 AI 驱动的语义检索：使用 Consensus 快速寻找科学共识
+    requirements: "能够根据课题需求构建准确的检索式，获取高质量中文文献。"
+
+  - chapter_number: "三"
+    title: "英文文献检索与获取"
+    objectives_supported: "1、2"
+    content: |
+      §1 Web of Science 核心合集的使用技巧
+      §2 AI 文献助手：使用 Elicit 进行相关文献的智能推荐与综述
+      §3 影响因子(IF)与分区(Q1-Q4)的解读
+    requirements: "掌握英文文献的获取途径，能结合传统与 AI 工具识别高水平期刊。"
+
+  - chapter_number: "四"
+    title: "文献管理效率工具"
+    objectives_supported: "1"
+    content: |
+      §1 文献管理软件（EndNote/Zotero）的安装与配置
+      §2 文献的导入、分组与笔记管理
+      §3 Word 插件使用：参考文献的自动插入与格式调整
+    requirements: "建立个人文献数据库，熟练使用软件辅助写作。"
+
+  - chapter_number: "五"
+    title: "英文论文阅读策略：结构与逻辑"
+    objectives_supported: "2"
+    content: |
+      §1 IMRaD 结构解析：各部分的功能与阅读重点
+      §2 略读（Skimming）与扫读（Scanning）技巧
+      §3 AI 辅助阅读：利用 ChatPDF/SciSpace 快速生成摘要与问答
+    requirements: "掌握英文论文的高效阅读方法，利用 AI 工具辅助克服语言障碍。"
+
+  - chapter_number: "六"
+    title: "深度阅读实战：以科学教育类论文为例"
+    objectives_supported: "2"
+    content: |
+      §1 Introduction 的“漏斗式”逻辑分析
+      §2 Methodology 与 Results 的对应关系
+      §3 批判性思维：人工核对 AI 总结的准确性与幻觉识别
+    requirements: "通过精读一篇高水平英文论文，通过笔记梳理其论证逻辑。"
+
+  - chapter_number: "七"
+    title: "科技论文写作入门"
+    objectives_supported: "3"
+    content: |
+      §1 标题（Title）与摘要（Abstract）的撰写技巧
+      §2 AI 辅助润色：使用 ChatGPT/DeepL Write 优化学术表达
+      §3 常见的中式英语（Chinglish）错误分析与修正
+    requirements: "尝试撰写一段规范的英文摘要，并使用 AI 工具进行润色对比。"
+
+  - chapter_number: "八"
+    title: "学术交流与课程汇报"
+    objectives_supported: "3"
+    content: |
+      §1 学术海报（Poster）的设计原则
+      §2 口头报告（Presentation）的结构与技巧
+      §3 课程结课汇报与互评
+    requirements: "以小组形式汇报文献调研成果，展示学术交流能力。"
+
+schedule:
+  - {seq: 1, name: "第一周：学术规范与检索基础", total: 2, theory: 2, practice: 0}
+  - {seq: 2, name: "第二周：传统检索 vs AI 语义检索", total: 2, theory: 1, practice: 1}
+  - {seq: 3, name: "第三周：英文数据库与智能推荐", total: 2, theory: 1, practice: 1}
+  - {seq: 4, name: "第四周：文献管理软件实战", total: 2, theory: 0, practice: 2}
+  - {seq: 5, name: "第五周：英文论文结构与 AI 辅助阅读", total: 2, theory: 2, practice: 0}
+  - {seq: 6, name: "第六周：深度阅读与幻觉识别", total: 2, theory: 1, practice: 1}
+  - {seq: 7, name: "第七周：论文写作规范与 AI 润色", total: 2, theory: 1, practice: 1}
+  - {seq: 8, name: "第八周：学术汇报与课程总结", total: 2, theory: 0, practice: 2}
+
+teaching_methods:
+  - title: "案例驱动教学"
+    content: "以真实的科学教育研究课题为线索，贯穿检索、阅读、管理到写作的全过程，让学生在解决实际问题中掌握技能。"
+  - title: "人机协作工坊"
+    content: "引入 Elicit, ChatPDF 等 AI 工具，教授学生如何编写 Prompt 来辅助科研，并在课堂上对比“人工阅读”与“AI 辅助”的效率与质量差异。"
+  - title: "双语对比教学"
+    content: "针对学生英语基础薄弱的问题，采用中英文论文对比阅读的方式，分析中西学术表达的异同，降低畏难情绪。"
+
+assessment:
+  intro: "课程考核注重过程积累与实际技能，不设闭卷考试。平时成绩（40%）包括课堂实操练习与出勤；期末成绩（60%）为一份完整的文献综述报告或检索分析报告。"
+  methods:
+    - {target: "课程目标 1", attendance: "20", activity: "40", homework: "40", final: "0"}
+    - {target: "课程目标 2", attendance: "20", activity: "40", homework: "40", final: "0"}
+    - {target: "课程目标 3", attendance: "0", activity: "20", homework: "20", final: "60"}
+
+textbooks:
+  - "林佳, 《科技文献检索与论文写作》, 清华大学出版社, 2021."
+  - "Glasman-Deal, H., 《Science Research Writing for Non-Native Speakers of English》, Imperial College Press, 2010."
+  - "OpenAI & Education, 《Teaching with AI》, 2024."
+
+grading_criteria:
+  - id: 1
+    excellent: "能精准制定复杂的检索策略，熟练运用 CNKI/WOS 及 AI 检索工具（如 Elicit），查全率与查准率高；文献库管理井井有条。"
+    good: "能制定正确的检索策略，获取相关文献；掌握基础检索工具及 EndNote 基本功能，能完成参考文献的插入。"
+    average: "能使用基础关键词检索文献，结果相关性尚可；能手动或半自动管理参考文献。"
+    fail: "无法获取有效文献，检索逻辑混乱；不会使用文献管理工具。"
+  - id: 2
+    excellent: "阅读英文论文速度快，能结合 AI 工具准确提炼核心观点与创新点，并能识别 AI 可能的误读，对文章逻辑有深度批判性思考。"
+    good: "能顺利阅读英文论文，准确理解主要内容，能梳理出文章的基本框架；能适度使用翻译工具辅助理解。"
+    average: "借助工具能读懂英文论文大意，对关键信息（如结论）理解基本正确。"
+    fail: "无法阅读英文论文，严重依赖全文翻译工具，对文章内容理解偏差大。"
+  - id: 3
+    excellent: "写作严谨规范，逻辑性强，无语病与格式错误；引用规范，完全符合学术道德要求；能利用 AI 进行高质量润色而非直接生成。"
+    good: "写作基本规范，逻辑较清晰，格式基本正确；引用合规；能简单使用 AI 检查语法。"
+    average: "写作内容完整，但逻辑松散或有少量格式错误；引用基本合规。"
+    fail: "写作存在严重抄袭、AI 生成痕迹明显且未核实，或格式混乱。"
+
+evaluation_rubric:
+  - element: "出勤情况\n（10分）"
+    dimension: "自主学习"
+    metric: "学习态度"
+    excellent: "全勤，准时到课，积极准备课前预习。"
+    good: "无旷课，偶有迟到或请假。"
+    average: "偶有旷课，或迟到次数较多。"
+    fail: "经常旷课，严重影响教学秩序。"
+  - element: "课堂活动（含小测验，作业，互动等）\n（50分）"
+    dimension: "工具应用"
+    metric: "实践能力"
+    excellent: "检索任务完成度高，结果精准；软件操作熟练，能帮助同学解决问题。"
+    good: "能按时完成检索任务，结果符合要求；软件操作基本无误。"
+    average: "能完成基本任务，但速度较慢或需教师协助。"
+    fail: "无法完成课堂实操任务。"
+  - element: "上课座位\n（40分）"
+    dimension: "阅读分析"
+    metric: "学科素养"
+    excellent: "阅读笔记详实，分析深刻，英文摘要翻译信达雅。"
+    good: "按时提交作业，内容完整，理解正确。"
+    average: "作业有缺漏，或理解停留在表面。"
+    fail: "作业未提交或敷衍塞责。"
