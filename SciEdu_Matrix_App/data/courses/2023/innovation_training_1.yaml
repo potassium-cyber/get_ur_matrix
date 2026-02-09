@@ -23,8 +23,6 @@ course_attribute:
 
 config:
   standard_version: "2023"
-  templates:
-    rubric: "components/evaluation_rubric_complex.tex.j2"
 
 course_introduction: |
   《创新创造能力训练I》是面向科学教育专业大一新生的重要入门课程，旨在培养和提升学生的创新创造能力。
@@ -86,17 +84,6 @@ course_objectives:
       学生将发展出一套完整的创新思维模式。包括如何进行创意激发、快速原型设计和迭代改进。
       他们将会如何使用批判性思维来评估和优化设计方案，并能够在创新过程中考虑用户体验和市场需求。
 
-analysis_and_improvement:
-  summary_intro: >-
-    本课程注重“学思用创”的有机结合，学生整体动手能力提升显著，但在将创意转化为工程可行的三维模型时，
-    部分学生仍存在“眼高手低”现象，需要进一步强化从设计到制造的工程化思维训练。
-  improvement_plan:
-    - title: "优化设备配比"
-      content: "针对打印机排队现象，引入预约系统并增加并联打印时段，提高设备周转率。"
-    - title: "强化工程约束"
-      content: "在建模阶段提前引入壁厚、悬空等打印工艺规范的讲解，减少因模型不规范导致的返工。"
-    - title: "引入AI辅助"
-      content: "尝试引入AI绘画工具辅助前期创意生成，帮助学生快速具象化灵感，将精力更多聚焦于结构实现。"
 
 mapping_matrix:
   - co_id: 1

@@ -1,28 +1,30 @@
 # ==========================================
 # SciEdu Docs - 课程数据模版 (Course Data Template)
 # ==========================================
-# 说明: 此文件用于生成课程标准(Syllabus)和达成度报告(Achievement Report)。
+# 说明: 此文件用于生成课程标准(Course_standard)和达成度报告(Requirement_report)。
+# 引用标准: 本模板结构基于 @courses/2023/innovation_training_1.yaml 进行标准化。
 # LLM 指令: 请根据具体的课程内容替换 <尖括号> 中的占位符。保留 YAML 结构和键名。
+#           对于多行文本内容，请使用 YAML 的保留换行符 (|) 或折叠换行符 (>+)。
 # ==========================================
 
 course_info:
-  code: "<COURSE_CODE>"       # 课程代码, 如 "00100021"
-  name: "<CHINESE_NAME>"      # 中文课程名, 如 "教育见习 I"
-  name_en: "<ENGLISH_NAME>"   # 英文课程名, 如 "Educational Probation I"
-  credits: 0.0                # 学分 (Float), 如 0.5
-  hours: 0                    # 总学时 (Int), 如 8
-  practical_hours: 0          # 实践/实验学时
+  code: "<COURSE_CODE>"       # 课程代码, 如 "11113080"
+  name: "<CHINESE_NAME>"      # 中文课程名, 如 "创新创造能力训练 I"
+  name_en: "<ENGLISH_NAME>"   # 英文课程名, 如 "Innovation Ability Training I"
+  credits: 0.0                # 学分 (Float), 如 1.5
+  hours: 0                    # 总学时 (Int), 如 32
+  practical_hours: 0          # 实践/实验学时 (Int), 如 16
   term: 1                     # 开课学期 (1-8)
-  prerequisites: "<前修课程>"  # 如 "科学教学设计" 或 "无"
+  prerequisites: "<前修课程>"  # 如 "无" 或 "高等数学"
   department: "<开课学院>"     # 如 "物理科学与技术学院"
-  major: "<适用专业>"          # 如 "科学教育（202X级）"
-  author: "<执笔人>"
-  responsible: "<负责人>"
-  reviewer: "<审核人>"
-  date: "<YYYY年MM月>"
+  major: "<适用专业>"          # 如 "科学教育（2023-2026级）"
+  author: "<执笔人>"           # 如 "车潇洋"
+  responsible: "<负责人>"      # 如 "车潇洋"
+  reviewer: "<审核人>"         # 如 "周小燕"
+  date: "<YYYY年MM月>"         # 如 "2023年12月"
 
 course_attribute:
-  type: "<课程性质>"          # 如 "专业必修课程", "综合实践课程", "通识选修课"
+  type: "<课程性质>"          # 如 "实践课程", "专业必修课", "通识选修课"
   hours_distribution:
     total: 0                  # 应与 course_info.hours 一致
     theory: 0                 # 理论学时
@@ -30,102 +32,111 @@ course_attribute:
 
 config:
   standard_version: "2023"    # 标准版本号，通常固定
-  templates:
-    # 评价量表模版: 
-    # - "components/evaluation_rubric_complex.tex.j2" (适用于复杂的多维度评分)
-    # - "components/evaluation_rubric_simple.tex.j2" (适用于简单评分)
-    rubric: "components/evaluation_rubric_complex.tex.j2"
 
 course_introduction: |
   <课程简介>
   请在此处撰写一段详细的课程介绍，包括课程定位、教学目的、主要内容以及对学生专业发展的意义。
-  (支持多行文本)
+  支持多段落，用于生成课程大纲的“课程简介”章节。
+
+overall_goals:
+  # 课程总体目标 (知识、能力、素质)
+  - id: "知识目标"
+    description: >-
+      <知识目标描述>
+      例如：掌握...的基础理论，理解...的核心概念，熟悉...的操作流程。
+  - id: "能力目标"
+    description: >-
+      <能力目标描述>
+      例如：能够独立完成...的设计与制作，具备...的问题解决能力，能够运用...工具进行创新。
+  - id: "素质目标"
+    description: >-
+      <素质目标描述>
+      例如：培养...的创新意识，增强...的团队协作精神，树立...的职业伦理观。
 
 course_objectives:
-  # 定义 3-5 个课程目标 (COs)
+  # 定义 3-5 个具体的课程目标 (COs)，通常对应上面的总体目标并更具体化
   - id: 1
-    delivery: "<教学方式>"     # 如 "讲座、小组讨论"
-    evaluation: "<评价方式>"   # 如 "作业、期末考试、报告"
+    delivery: "<教学方式>"     # 如 "案例演示、机房实操"
+    evaluation: "<评价方式>"   # 如 "建模作业、课堂测试"
     description: >-
       <课程目标描述 1>
-      描述学生在完成课程后应具备的能力或素养。
+      描述学生在完成课程后应具备的具体能力。例如：学生将能够使用 Blender 软件进行三维建模...
   - id: 2
     delivery: "<教学方式>"
     evaluation: "<评价方式>"
     description: >-
       <课程目标描述 2>
-
-analysis_and_improvement:
-  # 持续改进部分 (用于达成度报告)
-  summary_intro: >-
-    <上轮教学总结>
-    简述上一轮教学中的整体情况、学生表现及存在的主要问题。
-  improvement_plan:
-    - title: "<改进措施标题 1>"
-      content: "<改进措施具体内容>"
-    - title: "<改进措施标题 2>"
-      content: "<改进措施具体内容>"
+  - id: 3
+    delivery: "<教学方式>"
+    evaluation: "<评价方式>"
+    description: >-
+      <课程目标描述 3>
 
 mapping_matrix:
   # 课程目标(CO) 对 毕业要求指标点(Indication Points) 的支撑矩阵
   # 支撑强度: H (高), M (中), L (低)
-  # 注意: 具体的 req_id (如 1-1, 2-1) 需参考对应年份的培养方案 (program.yaml)
+  # 注意: 具体的 req_id (如 1-1, 3-2) 需参考 @programs/2023_program.yaml
   - co_id: 1
     requirements:
-      - {req_id: "<IND_POINT_ID>", level: "H"} # 如 "1-1"
-      - {req_id: "<IND_POINT_ID>", level: "M"}
+      - {req_id: "<IND_POINT_ID>", level: "H"} # 如 "3-1"
+      - {req_id: "<IND_POINT_ID>", level: "H"}
   - co_id: 2
     requirements:
-      - {req_id: "<IND_POINT_ID>", level: "H"}
+      - {req_id: "<IND_POINT_ID>", level: "M"}
 
 chapters:
   # 课程章节内容安排
-  - chapter_number: 1
+  - chapter_number: "一"       # 章节序号，建议使用中文数字或阿拉伯数字
     title: "<章节标题>"
     objectives_supported: "1、2" # 该章节支撑的课程目标ID
-    content: "<章节内容摘要>"
-    requirements: null         # 可选: 特定的修读要求
-  - chapter_number: 2
+    content: |
+      §1 <小节标题1>
+      §2 <小节标题2>
+      §3 <小节标题3>
+    requirements: "<修读要求> 例如：了解...，掌握...，完成...练习。"
+
+  - chapter_number: "二"
     title: "<章节标题>"
     objectives_supported: "2、3"
-    content: "<章节内容摘要>"
-    requirements: null
+    content: |
+      §1 <小节标题>
+    requirements: "<修读要求>"
 
 schedule:
-  # 教学进度安排 (通常按周次)
-  # total/theory/practice 若为空(null)则不显示具体学时分配
-  - {seq: 1, name: "第一周：<教学主题>", total: null, theory: null, practice: null}
-  - {seq: 2, name: "第二周：<教学主题>", total: null, theory: null, practice: null}
+  # 教学进度安排 (按周次)
+  # total/theory/practice 需明确学时分配
+  - {seq: 1, name: "<教学主题>", total: 2, theory: 1, practice: 1}
+  - {seq: 2, name: "<教学主题>", total: 2, theory: 0, practice: 2}
 
 teaching_methods:
   # 教学方法描述
-  - title: "<方法名称>"      # 如 "案例教学法"
-    content: "<方法描述>"
+  - title: "<方法名称>"      # 如 "案例驱动教学"
+    content: "<方法描述> 例如：结合实际案例进行教学..."
   - title: "<方法名称>"
     content: "<方法描述>"
 
 assessment:
-  intro: "<考核方式说明>" # 如 "平时成绩占40%，期末成绩占60%..."
+  # 考核方式说明
+  intro: "包括过程性评价和期末考试。其中过程性评价占40%（出勤情况占20%，课堂活动占40%，课后作业40%）【见过程性评价量规表】，期末考试成绩占60%。"
   methods:
-    # 各课程目标的考核权重分配表
-    # 列名 (如 attendance, activity) 需与 Typst 模板中的变量对应
-    # 数值为百分比
-    - {target: "课程目标 1", attendance: "10", activity: "20", homework: "30", final: "40"}
-    - {target: "课程目标 2", attendance: "10", activity: "20", homework: "30", final: "40"}
+    # 各课程目标的考核权重分配表 (数值为百分比)
+    # 列名 (attendance, activity, homework, final) 需固定
+    - {target: "课程目标 1", attendance: "30-70", activity: "30-70", homework: "30-70", final: "30-70"}
+    - {target: "课程目标 2", attendance: "20-40", activity: "20-40", homework: "20-40", final: "20-40"}
 
 textbooks:
   # 教材与参考书目
-  - "<作者>, <书名>, <出版社>, <出版年份>."
+  - "<作者>, 《<书名>》, <出版社>, <出版年份>."
   - "<参考书目 2>"
 
 grading_criteria:
   # 课程目标达成评价标准 (Rubrics for COs)
   # 定义每个目标在不同等级下的表现描述
   - id: 1
-    excellent: "<优 - 描述>"
-    good: "<良 - 描述>"
-    average: "<中 - 描述>"
-    fail: "<差 - 描述>"
+    excellent: "<优 - 描述> 例如：深刻理解...，熟练掌握...，能独立..."
+    good: "<良 - 描述> 例如：较好理解...，掌握...，能完成..."
+    average: "<中 - 描述> 例如：基本理解...，能使用...，完成基础..."
+    fail: "<差 - 描述> 例如：缺乏...，无法完成..."
   - id: 2
     excellent: "<优 - 描述>"
     good: "<良 - 描述>"
@@ -133,11 +144,24 @@ grading_criteria:
     fail: "<差 - 描述>"
 
 evaluation_rubric:
-  # 详细评分量表 (用于具体的作业或报告评分)
-  - element: "<评价要素>"      # 如 "教学设计"
-    dimension: "<维度及权重>"  # 如 "设计规范 (40%)"
-    metric: "<满分值>"        # 如 "40分"
-    excellent: "<90-100% 得分标准>"
-    good: "<80-89% 得分标准>"
-    average: "<60-79% 得分标准>"
-    fail: "<60%以下 得分标准>"
+  # 过程性评价量规表 (针对平时表现)
+  # 字段说明:
+  # - element:   评价的大类，需包含分值 (如 "课堂活动\n（40分）")
+  # - dimension: 具体评价维度及权重 (如 "听课状态 （20%）")
+  # - metric:    对应的核心素养指标 (如 "学习态度", "学科素养", "合作意识")。注意：此处不填分值！
+  # 以下为标准模板，通常无需修改，除非课程有特殊要求
+  - element: "出勤情况\n（20分）"
+    dimension: "自主学习"
+    metric: "学习态度"
+    excellent: "无旷课、迟到、早退，遵守规定。"
+    good: "无旷课，偶有迟到或请假，基本遵守规定。"
+    average: "偶有旷课，迟到、早退或请假，偶尔违反规定。"
+    fail: "经常旷课，迟到、早退，严重违反规定。"
+  - element: "课堂活动\n（40分）"
+    dimension: "听课状态 （20%）"
+    metric: "学习态度"
+    excellent: "专注听讲，积极互动，无违纪。"
+    good: "较专注听讲，能参与互动，无睡觉溜号。"
+    average: "听课一般，少参与互动，偶有精神不集中。"
+    fail: "听课不认真，不参与互动，睡觉或玩手机。"
+  # ... (其他标准项如 回答问题, 课堂小测, 小组合作 等可根据 innovation_training_1.yaml 补充)

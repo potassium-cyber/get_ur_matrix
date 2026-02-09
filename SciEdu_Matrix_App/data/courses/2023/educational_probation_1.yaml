@@ -6,7 +6,7 @@ course_info:
   hours: 8
   practical_hours: 8
   term: 1
-  prerequisites: "科学教学设计、小学德育与班级管理"
+  prerequisites: "无"
   department: "物理科学与技术学院"
   major: "科学教育（2023-2026级）"
   author: "车潇洋"
@@ -23,8 +23,6 @@ course_attribute:
 
 config:
   standard_version: "2023"
-  templates:
-    rubric: "components/evaluation_rubric_complex.tex.j2"
 
 course_introduction: |
   科学教育见习是科学教育专业的一门教师教育类必修课程。它是教育类专业人才培养的重要环节，也是科学教育类师范生开展教育实践的初始环节。
@@ -49,17 +47,6 @@ course_objectives:
     description: >-
       通过一系列的见习活动，检查所学知识的应用情况，逐渐提升学生的教研水平，提升沟通与协作能力，为校外实习做准备。
 
-analysis_and_improvement:
-  summary_intro: >-
-    通过“观摩-记录-反思-研习”的闭环训练，学生对小学科学教育现状有了直观认识，师德情怀得到熏陶。
-    但在“如何从听课中看门道”以及“将理论知识映射到教学现场”方面，部分学生仍停留在表面热闹，缺乏深度教育学视角的反思。
-  improvement_plan:
-    - title: "结构化听课"
-      content: "设计标准化的《课堂观察量表》，引导学生从关注'教师教'转向关注'学生学'，提升观摩的专业性。"
-    - title: "双导师联动"
-      content: "加强校内导师与一线名师的沟通，开展联合评课环节，实现理论与实践的即时对话。"
-    - title: "研习成果固化"
-      content: "优秀研习报告汇编成册，并在低年级中进行宣讲，发挥朋辈引领作用。"
 
 mapping_matrix:
   - co_id: 1
@@ -140,6 +127,30 @@ assessment:
     - {target: "课程目标 1", attendance: "20", activity: "10", homework: "40", final: "0"}
     - {target: "课程目标 2", attendance: "20", activity: "10", homework: "50", final: "0"}
     - {target: "课程目标 3", attendance: "0", activity: "30", homework: "70", final: "0"}
+
+assessment_method:
+  type: "exam"
+  exam_structure:
+    - name: "师德体验与教育情怀"
+      count: 1
+      score_per_item: 20
+      difficulty: 1.0
+      targets: [1, 2, 3]
+    - name: "课程观摩"
+      count: 1
+      score_per_item: 30
+      difficulty: 1.0
+      targets: [1, 2, 3]
+    - name: "综合职业能力"
+      count: 1
+      score_per_item: 15
+      difficulty: 1.0
+      targets: [1, 2, 3]
+    - name: "见习报告"
+      count: 1
+      score_per_item: 35
+      difficulty: 1.0
+      targets: [1, 2, 3]
 
 textbooks:
   - "教育见习与实习, 戴建兵, 高等教育出版社, 2017.12."

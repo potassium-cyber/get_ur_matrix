@@ -1,0 +1,236 @@
+# ==========================================
+# SciEdu Docs - 课程数据 (Course Data)
+# ==========================================
+
+course_info:
+  code: "11112082"
+  name: "创新创造能力训练 II"
+  name_en: "Innovation Ability Training II"
+  credits: 1.5
+  hours: 32
+  practical_hours: 16
+  term: 2
+  prerequisites: "创新创造能力训练I"
+  department: "物理科学与技术学院"
+  major: "科学教育（2023-2026级）"
+  author: "车潇洋"
+  responsible: "车潇洋"
+  reviewer: "周小燕"
+  date: "2026年01月"
+
+course_attribute:
+  type: "实践课程"
+  hours_distribution:
+    total: 32
+    theory: 16
+    practice: 16
+
+config:
+  standard_version: "2023"
+
+course_introduction: |
+  《创新创造能力训练 II》是专为科学教育专业大一学生设计的数字创意启蒙课程。继《创新训练 I》的物理创客实践后，本课程将引导学生进入数字创造领域。课程确立“玩中学”的理念，以 Python 编程为工具，以 2D 游戏设计为实践载体。
+  学生将从最基础的指令编写开始，通过“手写代码”亲自构建程序逻辑的“三大支柱”（顺序、分支、循环），并利用 Pygame 库实现从静态画面到动态交互的跨越。本课程旨在消除编程恐惧感，培养学生严谨的计算思维与审美创造力，让学生在解决具体逻辑问题的过程中，建立对编程底层原理的直观认识，为后续深入学习科学计算奠定坚实基础。
+
+overall_goals:
+  - id: "知识目标"
+    description: >-
+      掌握 Python 的核心基础语法（变量、数据类型、控制流、函数）；
+      理解 2D 游戏的基本运行原理（游戏循环、事件处理、坐标系）；
+      理解计算机程序的执行流程，建立将现实问题转化为代码逻辑的思维模式。
+
+  - id: "能力目标"
+    description: >-
+      能够利用代码实现简单的数学逻辑与物理运动模拟（如匀速直线运动、边界反弹）；
+      能够独立或合作开发一个完整的 2D 交互式小游戏，具备独立阅读报错信息（Traceback）并修复 Bug 的能力；
+      养成良好的代码书写规范与注释习惯。
+
+  - id: "素质目标"
+    description: >-
+      培养严谨的逻辑推理能力与勇于尝试的创新意识；
+      在项目协作中锻炼沟通能力与团队精神；
+      激发对科学教育数字化的探索热情，建立通过技术手段解决问题的自信心。
+
+course_objectives:
+  - id: 1
+    delivery: "案例拆解、即时练习"
+    evaluation: "课堂小练、基础作业"
+    description: >-
+      【语法启蒙】扎实掌握 Python 基础语法与控制结构，确保学生能独立编写脚本处理逻辑判断与重复任务，建立计算思维。
+  - id: 2
+    delivery: "游戏案例分析、实验操作"
+    evaluation: "阶段性作品、代码审查"
+    description: >-
+      【交互实践】掌握 Pygame 核心组件（画布、精灵、碰撞检测），能将抽象的数学坐标转化为屏幕上的动态反馈，实现人机交互。
+  - id: 3
+    delivery: "小组项目 (PBL)、展示评价"
+    evaluation: "游戏作品、汇报 PPT"
+    description: >-
+      【综合创造】在游戏开发中融入科学元素或教育意义，通过团队合作完成从策划、编码到发布的完整创新闭环，提升协作能力。
+
+mapping_matrix:
+  - co_id: 1
+    requirements:
+      - {req_id: "3-1", level: "H"}
+      - {req_id: "3-2", level: "M"}
+  - co_id: 2
+    requirements:
+      - {req_id: "4-2", level: "M"}
+      - {req_id: "8-1", level: "H"}
+  - co_id: 3
+    requirements:
+      - {req_id: "3-3", level: "M"}
+      - {req_id: "6-2", level: "M"}
+
+chapters:
+  - chapter_number: 1
+    title: "数字世界的积木：变量与运算"
+    objectives_supported: "1"
+    content: "认识 Python 与编程环境 (IDE)；Print 与 Input：程序与人的第一次对话；变量：存储游戏的血量、积分；基础运算：分数加减与时间计时。"
+    requirements: "安装 Python 与编辑器，编写一个能自动计算得分与等级的简单程序。"
+  - chapter_number: 2
+    title: "规则的制定者：条件判断 (If)"
+    objectives_supported: "1"
+    content: "If/Else 逻辑：判断角色是否撞墙、生命值是否为 0；逻辑运算符：同时满足多个条件的复杂判断；案例：简单的文本对话冒险游戏。"
+    requirements: "设计一个具有分支结局的文字小游戏，练习逻辑判断的嵌套。"
+  - chapter_number: 3
+    title: "无限的律动：循环结构 (While/For)"
+    objectives_supported: "1"
+    content: "While 循环：维持游戏的主运行状态；For 循环：批量生成敌人或子弹；案例：自动跳动的数字计时器。"
+    requirements: "利用循环结构生成一组规律分布的数据或图形。"
+  - chapter_number: 4
+    title: "功能的封装：函数基础"
+    objectives_supported: "1、2"
+    content: "为什么需要函数：让代码可复用；Def 关键字：封装‘攻击’、‘移动’等行为；参数与返回值：给函数传递数据。"
+    requirements: "将之前的逻辑代码改写为函数形式，提高代码的整洁度。"
+  - chapter_number: 5
+    title: "画布初开：Pygame 窗口与坐标系"
+    objectives_supported: "2"
+    content: "Pygame 环境搭建；游戏循环 (Game Loop) 详解；理解屏幕坐标系：左上角是 (0,0)；在屏幕上画出几何形状。"
+    requirements: "创建一个游戏窗口，并在窗口不同位置绘制彩色的矩形与圆形。"
+  - chapter_number: 6
+    title: "赋予生命：位图处理与动画"
+    objectives_supported: "2"
+    content: "加载外部图像 (Surface)；控制图片的显示位置 (Blit)；帧率 (FPS) 的概念；案例：让小猫在屏幕上横向移动。"
+    requirements: "加载一个角色素材，并利用循环实现其平滑移动。"
+  - chapter_number: 7
+    title: "玩家的力量：键盘与鼠标交互"
+    objectives_supported: "2"
+    content: "获取按键状态 (Get_Pressed)；鼠标点击与位置获取；案例：通过 WASD 键控制角色在四面八方移动。"
+    requirements: "实现一个可由玩家完全控制移动的角色。"
+  - chapter_number: 8
+    title: "列表的力量：管理成群的敌人"
+    objectives_supported: "1、2"
+    content: "列表 (List) 在游戏中的应用；批量创建与删除对象；案例：漫天飘落的雪花或源源不断的敌机。"
+    requirements: "利用列表同时管理 10 个以上在屏幕上运动的对象。"
+  - chapter_number: 9
+    title: "物理法则：碰撞检测与反馈"
+    objectives_supported: "2"
+    content: "矩形碰撞 (Rect.colliderect) 的原理；碰撞后的逻辑处理：扣血、消失、弹回；案例：简易版弹球游戏。"
+    requirements: "实现两个物体碰撞后发生状态改变的功能。"
+  - chapter_number: 10
+    title: "氛围营造：计分、字体与音效"
+    objectives_supported: "2、3"
+    content: "在屏幕上渲染文字 (Font)；加载并播放背景音乐与音效；设计简单的 UI 界面（如开始画面）。"
+    requirements: "为你的游戏添加背景音乐、碰撞音效以及实时显示的得分。"
+  - chapter_number: 11
+    title: "创意工坊：游戏策划与原型设计"
+    objectives_supported: "3"
+    content: "游戏策划书撰写：核心玩法、规则、美术风格；纸面原型 (Paper Prototyping)：用手绘理清逻辑流程；搭建最小可行性产品 (MVP)。"
+    requirements: "完成一份完整的游戏策划书，并画出核心逻辑的流程图。"
+  - chapter_number: 12
+    title: "期末实战：数字创新作品开发"
+    objectives_supported: "3"
+    content: "分组选定主题（如：科普小游戏、逻辑解谜、模拟仿真）；完成从素材收集、逻辑编写到界面优化的过程；路演准备。"
+    requirements: "完成一份完整的游戏策划书与可运行的作品 Demo。"
+
+schedule:
+  - {seq: 1, name: "第一周：你好 Python - 环境配置与第一行代码", total: 2, theory: 1, practice: 1}
+  - {seq: 2, name: "第二周：如果...就... - 游戏中的逻辑分支", total: 2, theory: 1, practice: 1}
+  - {seq: 3, name: "第三周：停不下来的动作 - 循环的威力", total: 2, theory: 1, practice: 1}
+  - {seq: 4, name: "第四周：积木打包 - 函数的定义与复用", total: 2, theory: 1, practice: 1}
+  - {seq: 5, name: "第五周：打开新世界 - Pygame 窗口与坐标系", total: 2, theory: 1, practice: 1}
+  - {seq: 6, name: "第六周：让图片动起来 - 位图加载与 FPS", total: 2, theory: 1, practice: 1}
+  - {seq: 7, name: "第七周：听你指挥 - 键盘与鼠标事件响应", total: 2, theory: 1, practice: 1}
+  - {seq: 8, name: "第八周：克隆大作战 - 列表管理多个对象", total: 2, theory: 1, practice: 1}
+  - {seq: 9, name: "第九周：针尖对麦芒 - 碰撞检测实战", total: 2, theory: 1, practice: 1}
+  - {seq: 10, name: "第十周：有声有色 - 字体渲染与音效系统", total: 2, theory: 1, practice: 1}
+  - {seq: 11, name: "第十一周：创意风暴 - 策划书与流程图绘制", total: 2, theory: 1, practice: 1}
+  - {seq: 12, name: "第十二周：我的游戏我做主 - 期末项目启动", total: 2, theory: 1, practice: 1}
+  - {seq: 13, name: "第十三周：项目开发 I - 核心逻辑实现", total: 2, theory: 0, practice: 2}
+  - {seq: 14, name: "第十四周：项目开发 II - 界面与音效优化", total: 2, theory: 0, practice: 2}
+  - {seq: 15, name: "第十五周：项目开发 III - 代码调试与测试", total: 2, theory: 0, practice: 2}
+  - {seq: 16, name: "第十六周：成果展示 - 数字创意作品路演", total: 2, theory: 0, practice: 2}
+
+teaching_methods:
+  - title: "玩中学 (Learning by Playing)"
+    content: "抛弃枯燥的语法说教，将每一个知识点（如循环、判断）都对应到具体的游戏功能中，让学生在成就感中前进。"
+  - title: "手写代码 (Hand-Coding)"
+    content: "在入门阶段强调亲自敲击键盘输入代码，建立肌肉记忆，反对盲目复制粘贴，培养对代码细节的敏感度。"
+  - title: "半开放项目式学习 (PBL)"
+    content: "期末提供若干经典游戏模板，鼓励学生在此基础上进行‘二次创作’，融入科学教育元素。"
+
+assessment:
+  intro: "包括过程性评价和期末作品。其中过程性评价占40%（出勤情况占20%，课堂互动占40%，阶段性小作业40%），期末作品（大作业）成绩占60%。"
+  methods:
+    - {target: "课程目标 1", attendance: "30-70", activity: "30-70", homework: "30-70", final: "30-70"}
+    - {target: "课程目标 2", attendance: "20-40", activity: "20-40", homework: "20-40", final: "20-40"}
+    - {target: "课程目标 3", attendance: "20-40", activity: "20-40", homework: "20-40", final: "20-40"}
+
+textbooks:
+  - "Al Sweigart, 《Python游戏编程快速上手》, 人民邮电出版社, 2017年."
+  - "Warren Sande, 《父与子的编程之旅：与小卡特一起学Python》, 人民邮电出版社, 2020年."
+
+grading_criteria:
+  - id: 1
+    excellent: "能纯熟运用变量、条件、循环和函数构建逻辑严密的程序；代码注释清晰，变量命名规范，能准确复述代码运行流程。"
+    good: "掌握基础语法，能编写逻辑清晰的代码片段；能独立解决大部分基础语法报错。"
+    average: "基本了解语法规则，但在复杂逻辑嵌套（如循环中嵌套判断）时需要较多指导。"
+    fail: "基础概念模糊，难以独立写出可运行的简单逻辑代码。"
+  - id: 2
+    excellent: "深刻理解 Pygame 的运行机制，能实现平滑的动画效果与精准的碰撞反馈，交互体验良好。"
+    good: "掌握 Pygame 核心组件，能实现基础的图形位移与交互功能，逻辑运行正常。"
+    average: "能完成基本的窗口创建与静态绘制，但在动态交互或碰撞处理上存在明显 Bug。"
+    fail: "无法在 Pygame 框架下实现有效的图形绘制或交互逻辑。"
+  - id: 3
+    excellent: "独立或领衔开发出具有高度创意或教学意义的游戏作品，界面美观、功能完备、逻辑稳定；展现出色的数字创新能力。"
+    good: "能完整实现一个具有基本可玩性的小游戏，能体现团队合作的痕迹，功能达成度高。"
+    average: "完成了基本的作品开发，但玩法单一，存在部分未修复的 Bug，交互体验一般。"
+    fail: "未能完成作品开发，或作品逻辑混乱、无法正常运行。"
+
+evaluation_rubric:
+  - element: "出勤情况 (20分)"
+    dimension: "学习态度"
+    metric: "20"
+    excellent: "无旷课、迟到、早退等现象。"
+    good: "无旷课，有迟到、早退或者请假现象。"
+    average: "有偶尔旷课，迟到、早退、或者请假现象。"
+    fail: "经常旷课，迟到、早退、或者请假。"
+  - element: "课堂活动 (40分)"
+    dimension: "听课与互动 (20%)"
+    metric: "8"
+    excellent: "课堂表现良好，认真听讲，积极互动，主动回答问题、注意力集中。"
+    good: "课堂表现较好，能够参与互动和回答问题、没有溜号等行为。"
+    average: "课堂表现一般，很少参与互动和回答问题、精神不够集中。"
+    fail: "课堂表现一般，不参与互动，偶尔睡觉或玩手机。"
+  - element: "课堂活动 (40分)"
+    dimension: "即时练习 (40%)"
+    metric: "16"
+    excellent: "能迅速完成课堂随堂小练习，代码运行正确且整洁。"
+    good: "能在规定时间内完成练习，逻辑基本正确。"
+    average: "在指导下能完成大部分练习，进度略慢。"
+    fail: "无法完成课堂练习，逻辑混乱。"
+  - element: "课堂活动 (40分)"
+    dimension: "小组协作 (40%)"
+    metric: "16"
+    excellent: "在团队中积极贡献创意，分工明确，有效推动项目进展。"
+    good: "能配合团队成员完成分配的任务，有较好的沟通意识。"
+    average: "基本能参与小组讨论，但贡献度有限。"
+    fail: "完全脱离团队，不参与项目讨论与开发。"
+  - element: "阶段作业 (40分)"
+    dimension: "专业能力"
+    metric: "40"
+    excellent: "按时提交作业，代码规范，能举一反三实现拓展功能。"
+    good: "认真完成作业，功能实现完整，书写规范。"
+    average: "能够完成作业，但步骤简略，代码存在小瑕疵。"
+    fail: "作业缺失严重，或存在明显的抄袭现象。"
