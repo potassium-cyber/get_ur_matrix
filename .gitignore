@@ -12,6 +12,16 @@ __pycache__/
 # IDE
 .vscode/
 .idea/
+.gitignore.swp
+
+# Local assistant notes
+GEMINI.md
+
+# Local analysis inputs and generated outputs
+Achievement_Analysis/output/
+Achievement_Analysis/raw_data/
+Achievement_Analysis/physics/
+Achievement_Analysis/sci_edu/
 
 2019_matrix_with_课程代码.csv
 2023_matrix_with_课程代码.csv
