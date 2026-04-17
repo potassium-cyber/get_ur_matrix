@@ -23,8 +23,29 @@ footer {
     display: none;
 }
 
-header {
-    visibility: hidden;
+header[data-testid="stHeader"] {
+    background: transparent;
+    z-index: 999990 !important;
+}
+
+[data-testid="stDecoration"] {
+    display: none;
+}
+
+[data-testid="collapsedControl"] {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: fixed !important;
+    top: 0.75rem !important;
+    left: 0.75rem !important;
+    z-index: 999991 !important;
+}
+
+[data-testid="collapsedControl"] button,
+button[kind="header"] {
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 /* Custom Card Container - Adaptive */
