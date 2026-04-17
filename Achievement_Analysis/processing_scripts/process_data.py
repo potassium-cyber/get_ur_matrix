@@ -2,28 +2,52 @@ import pandas as pd
 import difflib
 import os
 import sys
+import argparse
 
-# ================= 配置区域 =================
-# 脚本所在目录
+# ================= 路径配置 =================
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-# 项目根目录
-PROJECT_ROOT = os.path.dirname(os.path.dirname(SCRIPT_DIR)) 
-# 数据输出目录 (Achievement_Analysis/output)
+PROJECT_ROOT = os.path.dirname(os.path.dirname(SCRIPT_DIR))
 OUTPUT_DIR = os.path.join(os.path.dirname(SCRIPT_DIR), "output")
-# 矩阵定义文件目录 (SciEdu_Matrix_App/data)
-MATRIX_DIR = os.path.join(PROJECT_ROOT, "SciEdu_Matrix_App", "data")
 
-# 文件名配置
-INPUT_FILENAME = "2021_course_achievement_final.csv"
-MATRIX_FILENAME = "matrix_2019.csv"
-FINAL_OUTPUT_FILENAME = "2021_achievement_calculation_ready.xlsx"
-LOG_FILENAME = "match_log.xlsx"
+# SSoT 路径 (支持环境变量覆盖)
+SSOT_DIR = os.environ.get("SCIEDU_SSOT_DIR", 
+    os.path.join(os.path.dirname(PROJECT_ROOT), "SciEdu_Central_Data"))
 
-# 完整路径
-INPUT_FILE = os.path.join(OUTPUT_DIR, INPUT_FILENAME)
-MATRIX_FILE = os.path.join(MATRIX_DIR, MATRIX_FILENAME)
-FINAL_OUTPUT_FILE = os.path.join(OUTPUT_DIR, FINAL_OUTPUT_FILENAME)
-LOG_FILE = os.path.join(OUTPUT_DIR, LOG_FILENAME)
+def get_matrix_path(major: str, year: str) -> str:
+    """
+    获取指定专业和版本的矩阵文件路径。
+    优先使用新目录结构 (majors/), 回退到旧结构 (matrices/)。
+    """
+    # 新结构: majors/{major}/matrix_{year}.csv
+    new_path = os.path.join(SSOT_DIR, "majors", major, f"matrix_{year}.csv")
+    if os.path.exists(new_path):
+        return new_path
+    
+    # 旧结构回退: matrices/matrix_{year}.csv (仅限 sci_edu)
+    if major == "sci_edu":
+        old_path = os.path.join(SSOT_DIR, "matrices", f"matrix_{year}.csv")
+        if os.path.exists(old_path):
+            return old_path
+    
+    # 最后尝试 App 内的数据 (兼容性)
+    app_path = os.path.join(PROJECT_ROOT, "SciEdu_Matrix_App", "data", f"matrix_{year}.csv")
+    if os.path.exists(app_path):
+        return app_path
+    
+    raise FileNotFoundError(f"Matrix file not found for major={major}, year={year}")
+
+def parse_args():
+    parser = argparse.ArgumentParser(description="毕业要求达成度计算 - 数据处理脚本")
+    parser.add_argument("--major", default="sci_edu", 
+                        help="专业代码，如 sci_edu (科学教育) 或 physics (物理学)")
+    parser.add_argument("--year", default="2019", 
+                        help="培养方案版本年份，如 2019 或 2023")
+    parser.add_argument("--input", default=None,
+                        help="成绩数据文件路径 (默认: output/{year}_course_achievement_final.csv)")
+    parser.add_argument("--output-suffix", default="",
+                        help="输出文件后缀 (用于区分不同批次)")
+    return parser.parse_args()
+
 # ===========================================
 
 def normalize_name(name):
@@ -51,29 +75,29 @@ def normalize_code(code):
     if pd.isna(code): return ""
     return str(code).strip().split('.')[0]
 
-def load_data():
+def load_data(input_file: str, matrix_file: str):
     """读取并预处理数据"""
-    print(f"Reading Input: {INPUT_FILE}")
-    print(f"Reading Matrix: {MATRIX_FILE}")
+    print(f"Reading Input: {input_file}")
+    print(f"Reading Matrix: {matrix_file}")
     
-    if not os.path.exists(INPUT_FILE):
-        print(f"❌ Error: 输入文件不存在: {INPUT_FILE}")
+    if not os.path.exists(input_file):
+        print(f"❌ Error: 输入文件不存在: {input_file}")
         sys.exit(1)
-    if not os.path.exists(MATRIX_FILE):
-        print(f"❌ Error: 矩阵文件不存在: {MATRIX_FILE}")
+    if not os.path.exists(matrix_file):
+        print(f"❌ Error: 矩阵文件不存在: {matrix_file}")
         sys.exit(1)
 
-    df_2021 = pd.read_csv(INPUT_FILE, encoding='utf-8-sig', dtype=str)
-    df_matrix = pd.read_csv(MATRIX_FILE, encoding='utf-8-sig', dtype=str)
+    df_input = pd.read_csv(input_file, encoding='utf-8-sig', dtype=str)
+    df_matrix = pd.read_csv(matrix_file, encoding='utf-8-sig', dtype=str)
 
     # 预处理标准化列
-    df_2021['norm_code'] = df_2021['课程代码'].apply(normalize_code)
-    df_2021['norm_name'] = df_2021['课程名称'].apply(normalize_name)
+    df_input['norm_code'] = df_input['课程代码'].apply(normalize_code)
+    df_input['norm_name'] = df_input['课程名称'].apply(normalize_name)
     
     df_matrix['norm_code'] = df_matrix['课程编码'].apply(normalize_code)
     df_matrix['norm_name'] = df_matrix['课程名称'].apply(normalize_name)
 
-    return df_2021, df_matrix
+    return df_input, df_matrix
 
 def perform_matching(df_2021, df_matrix):
     """执行核心匹配逻辑"""
@@ -134,12 +158,12 @@ def perform_matching(df_2021, df_matrix):
         
     return match_results, valid_matches
 
-def generate_output_files(df_matrix, valid_matches, match_results):
+def generate_output_files(df_matrix, valid_matches, match_results, final_output_file: str, log_file: str):
     """生成最终需要的两个 Excel 文件"""
     
     # --- 1. 生成详细日志 ---
-    print(f"Generating Log: {LOG_FILE}")
-    pd.DataFrame(match_results).to_excel(LOG_FILE, index=False)
+    print(f"Generating Log: {log_file}")
+    pd.DataFrame(match_results).to_excel(log_file, index=False)
     
     # --- 2. 生成计算用长表 ---
     print("Generating Final Calculation File...")
@@ -180,8 +204,8 @@ def generate_output_files(df_matrix, valid_matches, match_results):
         final_df['达成度'] = pd.to_numeric(final_df['达成度'], errors='coerce')
         final_df = final_df.sort_values(by=['指标点', '课程名称'])
     
-    print(f"Saving Final Output: {FINAL_OUTPUT_FILE}")
-    final_df.to_excel(FINAL_OUTPUT_FILE, index=False)
+    print(f"Saving Final Output: {final_output_file}")
+    final_df.to_excel(final_output_file, index=False)
     
     # 打印摘要
     found_count = len(valid_matches)
@@ -204,16 +228,38 @@ def generate_output_files(df_matrix, valid_matches, match_results):
             print(f"  {i+1}. {c}")
         print(f"--------------------------------------------------")
         
-    print(f"📂 最终文件: {FINAL_OUTPUT_FILE}")
+    print(f"📂 最终文件: {final_output_file}")
     print("=" * 50)
 
 def main():
+    args = parse_args()
+    
+    # 解析路径
+    matrix_file = get_matrix_path(args.major, args.year)
+    
+    # 输入文件: CLI 指定 或 默认
+    if args.input:
+        input_file = args.input
+    else:
+        input_file = os.path.join(OUTPUT_DIR, f"{args.year}_course_achievement_final.csv")
+    
+    # 输出文件
+    suffix = f"_{args.output_suffix}" if args.output_suffix else ""
+    final_output_file = os.path.join(OUTPUT_DIR, f"{args.major}_{args.year}_achievement_ready{suffix}.xlsx")
+    log_file = os.path.join(OUTPUT_DIR, f"{args.major}_{args.year}_match_log{suffix}.xlsx")
+    
+    print(f"\n🎓 毕业要求达成度计算")
+    print(f"   专业: {args.major}")
+    print(f"   版本: {args.year}")
+    print(f"   矩阵: {matrix_file}")
+    print()
+    
     # 1. 加载
-    df_2021, df_matrix = load_data()
+    df_input, df_matrix = load_data(input_file, matrix_file)
     # 2. 匹配
-    match_results, valid_matches = perform_matching(df_2021, df_matrix)
+    match_results, valid_matches = perform_matching(df_input, df_matrix)
     # 3. 输出
-    generate_output_files(df_matrix, valid_matches, match_results)
+    generate_output_files(df_matrix, valid_matches, match_results, final_output_file, log_file)
 
 if __name__ == "__main__":
     main()
