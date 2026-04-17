@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import os
 import yaml
+from datetime import datetime
 
 # --- Configuration ---
 # Define data directory (Use absolute path for cloud compatibility)
@@ -33,15 +34,18 @@ def get_indicator_cols(dataframe):
     """Get all indicator columns (excluding metadata columns)"""
     return [c for c in dataframe.columns if c not in ['课程名称', '课程编码']]
 
+
+def resolve_data_file_path(major_dir, file_name):
+    """Resolve a data file path, falling back to the data root if needed."""
+    file_path = os.path.join(DATA_DIR, major_dir, file_name)
+    if not os.path.exists(file_path):
+        file_path = os.path.join(DATA_DIR, file_name)
+    return file_path
+
 @st.cache_data
 def load_data(major_dir, file_name, timestamp):
     """Load CSV matrix data, supporting multi-major paths"""
-    # Priority: majors/ directory
-    file_path = os.path.join(DATA_DIR, major_dir, file_name)
-    
-    # Fallback: data/ root directory
-    if not os.path.exists(file_path):
-        file_path = os.path.join(DATA_DIR, file_name)
+    file_path = resolve_data_file_path(major_dir, file_name)
     
     if not os.path.exists(file_path):
         return None
@@ -67,6 +71,16 @@ def load_data(major_dir, file_name, timestamp):
         st.error(f"数据加载失败: {e}")
         return None
 
+
+def get_data_last_updated(major_dir, file_name):
+    """Return the last modified time of a data file as a display string."""
+    file_path = resolve_data_file_path(major_dir, file_name)
+    if not os.path.exists(file_path):
+        return None
+
+    timestamp = os.path.getmtime(file_path)
+    return datetime.fromtimestamp(timestamp).strftime("%Y-%m-%d %H:%M")
+
 @st.cache_data
 def load_program_data(major_dir, yaml_file):
     """Parse YAML file and return configuration data"""
@@ -88,8 +102,6 @@ def load_program_data(major_dir, yaml_file):
 
 def load_data_with_ts(major_dir, filename):
     """Helper to load data with timestamp checking (for cache invalidation)"""
-    fp = os.path.join(DATA_DIR, major_dir, filename)
-    if not os.path.exists(fp):
-        fp = os.path.join(DATA_DIR, filename)
+    fp = resolve_data_file_path(major_dir, filename)
     ts = os.path.getmtime(fp) if os.path.exists(fp) else 0
     return load_data(major_dir, filename, ts)

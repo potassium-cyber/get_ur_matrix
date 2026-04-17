@@ -11,18 +11,32 @@ from views.analysis import view_analysis
 # Import utilities
 from utils.data_loader import (
     load_data_with_ts, 
+    get_data_last_updated,
     load_program_data, 
     MAJORS, 
     DATA_DIR
 )
+
+# Streamlit only honors the sidebar's "initial" state. To reliably open it
+# for a fresh session, cycle once through the opposite state, then rerun.
+DEFAULT_SIDEBAR_STATE = "expanded"
+
+if "sidebar_state" not in st.session_state:
+    st.session_state.sidebar_state = "collapsed"
+    st.session_state.sidebar_state_bootstrap = True
 
 # --- 1. Page Configuration ---
 st.set_page_config(
     page_title="课程关联矩阵速查",
     page_icon="🎓",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state=st.session_state.sidebar_state
 )
+
+if st.session_state.get("sidebar_state_bootstrap"):
+    st.session_state.sidebar_state = DEFAULT_SIDEBAR_STATE
+    st.session_state.sidebar_state_bootstrap = False
+    st.rerun()
 
 # --- Maintenance Mode ---
 # Keep an explicit hard-stop switch for emergency use, but do not block
@@ -89,9 +103,16 @@ with st.sidebar:
     
     # Load Data (Eager loading for statistics)
     df = load_data_with_ts(major_dir, current_config["csv"])
+    data_updated_at = get_data_last_updated(major_dir, current_config["csv"])
     
     if df is not None:
-        st.success(f"✅ {selected_version} 数据已就绪\n\n📚 **{len(df)}** 门课程")
+        status_lines = [
+            f"✅ {selected_version} 数据已就绪",
+            f"📚 **{len(df)}** 门课程",
+        ]
+        if data_updated_at:
+            status_lines.append(f"🕒 数据更新时间：`{data_updated_at}`")
+        st.success("\n\n".join(status_lines))
     else:
         st.error(f"❌ 数据加载失败: {current_config['csv']}")
 
