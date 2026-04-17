@@ -47,6 +47,14 @@ def resolve_metadata_file_path(major_dir):
     """Resolve a metadata file path for a major."""
     return os.path.join(DATA_DIR, major_dir, "metadata.yaml")
 
+
+def resolve_program_file_path(major_dir, yaml_file):
+    """Resolve a program YAML path, falling back to the data root if needed."""
+    file_path = os.path.join(DATA_DIR, major_dir, yaml_file)
+    if not os.path.exists(file_path):
+        file_path = os.path.join(DATA_DIR, yaml_file)
+    return file_path
+
 @st.cache_data
 def load_data(major_dir, file_name, timestamp):
     """Load CSV matrix data, supporting multi-major paths"""
@@ -122,13 +130,10 @@ def get_data_update_info(major_dir, version_name, file_name):
     }
 
 @st.cache_data
-def load_program_data(major_dir, yaml_file):
+def load_program_data(major_dir, yaml_file, timestamp):
     """Parse YAML file and return configuration data"""
-    file_path = os.path.join(DATA_DIR, major_dir, yaml_file)
-    
-    if not os.path.exists(file_path):
-        file_path = os.path.join(DATA_DIR, yaml_file)
-    
+    file_path = resolve_program_file_path(major_dir, yaml_file)
+
     if not os.path.exists(file_path):
         return {}
 
@@ -139,6 +144,13 @@ def load_program_data(major_dir, yaml_file):
     except Exception as e:
         st.error(f"配置文件加载失败: {e}")
         return {}
+
+
+def load_program_data_with_ts(major_dir, yaml_file):
+    """Load program YAML with file timestamp for cache invalidation."""
+    file_path = resolve_program_file_path(major_dir, yaml_file)
+    ts = os.path.getmtime(file_path) if os.path.exists(file_path) else 0
+    return load_program_data(major_dir, yaml_file, ts)
 
 def load_data_with_ts(major_dir, filename):
     """Helper to load data with timestamp checking (for cache invalidation)"""

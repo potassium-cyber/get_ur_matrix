@@ -12,7 +12,7 @@ from views.analysis import view_analysis
 from utils.data_loader import (
     get_data_update_info,
     load_data_with_ts, 
-    load_program_data, 
+    load_program_data_with_ts,
     MAJORS, 
     DATA_DIR
 )
@@ -121,7 +121,7 @@ with st.sidebar:
 # --- 4. Main Content Routing ---
 
 # Load Program Data (YAML) for Home & Descriptions
-program_data = load_program_data(major_dir, current_config["yaml"])
+program_data = load_program_data_with_ts(major_dir, current_config["yaml"])
 
 # Extract indicators map for Query view
 indicators_map = {}
