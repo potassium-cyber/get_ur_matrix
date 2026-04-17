@@ -10,8 +10,8 @@ from views.analysis import view_analysis
 
 # Import utilities
 from utils.data_loader import (
+    get_data_update_info,
     load_data_with_ts, 
-    get_data_last_updated,
     load_program_data, 
     MAJORS, 
     DATA_DIR
@@ -103,15 +103,17 @@ with st.sidebar:
     
     # Load Data (Eager loading for statistics)
     df = load_data_with_ts(major_dir, current_config["csv"])
-    data_updated_at = get_data_last_updated(major_dir, current_config["csv"])
+    data_update_info = get_data_update_info(major_dir, selected_version, current_config["csv"])
     
     if df is not None:
         status_lines = [
             f"✅ {selected_version} 数据已就绪",
             f"📚 **{len(df)}** 门课程",
         ]
-        if data_updated_at:
-            status_lines.append(f"🕒 数据更新时间：`{data_updated_at}`")
+        if data_update_info.get("updated_at"):
+            status_lines.append(f"🕒 数据更新时间：`{data_update_info['updated_at']}`")
+        if data_update_info.get("note"):
+            status_lines.append(f"📝 {data_update_info['note']}")
         st.success("\n\n".join(status_lines))
     else:
         st.error(f"❌ 数据加载失败: {current_config['csv']}")

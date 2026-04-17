@@ -42,6 +42,11 @@ def resolve_data_file_path(major_dir, file_name):
         file_path = os.path.join(DATA_DIR, file_name)
     return file_path
 
+
+def resolve_metadata_file_path(major_dir):
+    """Resolve a metadata file path for a major."""
+    return os.path.join(DATA_DIR, major_dir, "metadata.yaml")
+
 @st.cache_data
 def load_data(major_dir, file_name, timestamp):
     """Load CSV matrix data, supporting multi-major paths"""
@@ -80,6 +85,41 @@ def get_data_last_updated(major_dir, file_name):
 
     timestamp = os.path.getmtime(file_path)
     return datetime.fromtimestamp(timestamp).strftime("%Y-%m-%d %H:%M")
+
+
+@st.cache_data
+def load_major_metadata(major_dir, timestamp):
+    """Load major-level metadata for UI display."""
+    metadata_path = resolve_metadata_file_path(major_dir)
+    if not os.path.exists(metadata_path):
+        return {}
+
+    try:
+        with open(metadata_path, 'r', encoding='utf-8') as f:
+            data = yaml.safe_load(f) or {}
+        return data
+    except Exception as e:
+        st.error(f"元数据加载失败: {e}")
+        return {}
+
+
+def get_version_metadata(major_dir, version_name):
+    """Return metadata for a specific major version."""
+    metadata_path = resolve_metadata_file_path(major_dir)
+    ts = os.path.getmtime(metadata_path) if os.path.exists(metadata_path) else 0
+    metadata = load_major_metadata(major_dir, ts)
+    return metadata.get("versions", {}).get(version_name, {})
+
+
+def get_data_update_info(major_dir, version_name, file_name):
+    """Return display metadata for a data version, with file mtime fallback."""
+    version_meta = get_version_metadata(major_dir, version_name)
+    updated_at = version_meta.get("updated_at") or get_data_last_updated(major_dir, file_name)
+    note = version_meta.get("note")
+    return {
+        "updated_at": updated_at,
+        "note": note,
+    }
 
 @st.cache_data
 def load_program_data(major_dir, yaml_file):
